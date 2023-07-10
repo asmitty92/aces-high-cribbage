@@ -8,37 +8,28 @@ class ArrayItem<T> {
     }
 }
 
-class Combinations<T> {
-    private readonly combinations: Array<Array<T>>
-    private readonly items: Array<T>;
+function getCombinations<T>(items: T[], itemCount: number) {
+    let combinations = [];
 
-    get Combinations(): Array<Array<T>> {
-        return this.combinations;
-    }
-
-    constructor(items: Array<T>, itemCount: number) {
-        this.combinations = [];
-        this.items = items;
-
-        this.generate(itemCount, 0, []);
-    }
-
-    private generate(itemCount: number, start: number, combo: ArrayItem<T>[]) {
-        itemCount--;
-        for (let i = start; i < this.items.length; i++) {
-            combo[itemCount] = new ArrayItem(this.items[i])
-            if (itemCount == 0) {
-                this.combinations.push(
+    function generateCombinations(count: number, start: number, combo: ArrayItem<T>[]) {
+        count--;
+        for (let i = start; i < items.length; i++) {
+            combo[count] = new ArrayItem(items[i])
+            if (count == 0) {
+                combinations.push(
                     combo
                         .map(i => i.value)
                 );
             } else {
                 start++;
-                this.generate(itemCount, start, combo);
+                generateCombinations(count, start, combo);
             }
         }
-
     }
+
+    generateCombinations(itemCount, 0, []);
+
+    return combinations;
 }
 
 export class CribbageHand extends CardHand {
@@ -63,13 +54,14 @@ export class CribbageHand extends CardHand {
         const values = tempCards.map(c => <number>c.face);
 
         for (let i = 2; i <= tempCards.length; i++) {
-            const combos = new Combinations(values, i);
+            // const combos = new Combinations(values, i);
+            const combos = getCombinations(values, i);
             score += this.countFifteens(tempCards, i);
 
             if (i == 2) {
                 score += this.countSets(combos);
             } else {
-                const runs = combos.Combinations.filter(c => (Math.max(...c) - Math.min(...c) + 1) == c.length && c.length == new Set(c).size)
+                const runs = combos.filter(c => (Math.max(...c) - Math.min(...c) + 1) == c.length && c.length == new Set(c).size)
                 score += runs.length * i
                 runCounts[i] = runs.length;
                 if (i > 3 && runs.length > 0) {
@@ -90,7 +82,7 @@ export class CribbageHand extends CardHand {
 
     private countFifteens(tempCards: Card[], comboSize: number): number {
         const sumValues = tempCards.map(c => c.face >= 10 ? 10 : c.face);
-        const sumCombos = new Combinations(sumValues, comboSize).Combinations;
+        const sumCombos = getCombinations(sumValues, comboSize);
         let score = 0;
         sumCombos.forEach(c => {
             const sum = <number>c.reduce((i1, i2) => i1 + i2);
@@ -100,9 +92,9 @@ export class CribbageHand extends CardHand {
         return score;
     }
 
-    private countSets(combos: Combinations<number>): number {
+    private countSets(combos: Array<Array<number>>): number {
         let score = 0;
-        combos.Combinations.forEach(c => {
+        combos.forEach(c => {
             if (c[0] == c[1])
                 score += 2;
         });
@@ -138,5 +130,9 @@ export class CribbagePlayer extends CardPlayer {
 
     scoreHand(): any {
         this.score += this.Hand.getScore();
+    }
+
+    compPassToCrib(): [Card, Card] {
+        return [null, null];
     }
 }
