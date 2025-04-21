@@ -8,7 +8,8 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "example": "npx ts-node example.ts"
   },
   "repository": {
     "type": "git",
@@ -21,7 +22,12 @@
   },
   "homepage": "https://github.com/rubyclimber/aces-high-cribbage#readme",
   "dependencies": {
-    "aces-high-core": "^1.0.3"
+    "jsii": "^5.7.4",
+    "jsii-pacmak": "^1.106.0",
+    "publib": "^0.2.938"
+  },
+  "peerDependencies": {
+    "aces-high-core": "^2.4.0"
   },
   "devDependencies": {
     "@types/jest": "^27.4.0",

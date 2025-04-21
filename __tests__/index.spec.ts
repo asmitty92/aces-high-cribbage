@@ -2,7 +2,7 @@ import {Card, Faces, Suits} from "aces-high-core";
 import {CribbageHand, CribbagePlayer} from "../src";
 
 describe('CribbageHand', () => {
-    describe('getScore() method', () => {
+    describe('calculateScore() method', () => {
         it('should count his nobs', () => {
             const hand = new CribbageHand([
                 new Card(Suits.HEARTS, Faces.TWO),
@@ -10,9 +10,9 @@ describe('CribbageHand', () => {
                 new Card(Suits.DIAMONDS, Faces.FOUR),
                 new Card(Suits.SPADES, Faces.JACK)
             ]);
-            hand.CutCard = new Card(Suits.SPADES, Faces.TEN);
+            hand.cutCard = new Card(Suits.SPADES, Faces.TEN);
 
-            expect(hand.getScore()).toEqual(1);
+            expect(hand.calculateScore()).toEqual(1);
         });
 
         describe('counting sets', () => {
@@ -23,9 +23,9 @@ describe('CribbageHand', () => {
                     new Card(Suits.SPADES, Faces.EIGHT),
                     new Card(Suits.CLUBS, Faces.TWO)
                 ]);
-                hand.CutCard = new Card(Suits.HEARTS, Faces.KING);
+                hand.cutCard = new Card(Suits.HEARTS, Faces.KING);
 
-                expect(hand.getScore()).toEqual(2);
+                expect(hand.calculateScore()).toEqual(2);
             });
 
             it('should count two sets', () => {
@@ -35,9 +35,9 @@ describe('CribbageHand', () => {
                     new Card(Suits.SPADES, Faces.EIGHT),
                     new Card(Suits.CLUBS, Faces.TWO)
                 ]);
-                hand.CutCard = new Card(Suits.HEARTS, Faces.QUEEN);
+                hand.cutCard = new Card(Suits.HEARTS, Faces.QUEEN);
 
-                expect(hand.getScore()).toEqual(4);
+                expect(hand.calculateScore()).toEqual(4);
             });
 
             it('should count a set of 3', () => {
@@ -47,9 +47,9 @@ describe('CribbageHand', () => {
                     new Card(Suits.SPADES, Faces.EIGHT),
                     new Card(Suits.CLUBS, Faces.TWO)
                 ]);
-                hand.CutCard = new Card(Suits.HEARTS, Faces.EIGHT);
+                hand.cutCard = new Card(Suits.HEARTS, Faces.EIGHT);
 
-                expect(hand.getScore()).toEqual(6);
+                expect(hand.calculateScore()).toEqual(6);
             });
 
             it('should count a set of 4', () => {
@@ -59,9 +59,9 @@ describe('CribbageHand', () => {
                     new Card(Suits.SPADES, Faces.EIGHT),
                     new Card(Suits.DIAMONDS, Faces.EIGHT)
                 ]);
-                hand.CutCard = new Card(Suits.HEARTS, Faces.EIGHT);
+                hand.cutCard = new Card(Suits.HEARTS, Faces.EIGHT);
 
-                expect(hand.getScore()).toEqual(12);
+                expect(hand.calculateScore()).toEqual(12);
             });
 
             it('should count a set of 3 and a set of 2', () => {
@@ -71,9 +71,9 @@ describe('CribbageHand', () => {
                     new Card(Suits.SPADES, Faces.EIGHT),
                     new Card(Suits.SPADES, Faces.QUEEN)
                 ]);
-                hand.CutCard = new Card(Suits.HEARTS, Faces.EIGHT);
+                hand.cutCard = new Card(Suits.HEARTS, Faces.EIGHT);
 
-                expect(hand.getScore()).toEqual(8);
+                expect(hand.calculateScore()).toEqual(8);
             });
         });
 
@@ -85,9 +85,9 @@ describe('CribbageHand', () => {
                     new Card(Suits.DIAMONDS, Faces.SEVEN),
                     new Card(Suits.SPADES, Faces.FOUR)
                 ]);
-                hand.CutCard = new Card(Suits.SPADES, Faces.TEN);
+                hand.cutCard = new Card(Suits.SPADES, Faces.TEN);
 
-                expect(hand.getScore()).toEqual(2);
+                expect(hand.calculateScore()).toEqual(2);
             })
 
             it('should count a 3 card 15', () => {
@@ -97,9 +97,9 @@ describe('CribbageHand', () => {
                     new Card(Suits.DIAMONDS, Faces.JACK),
                     new Card(Suits.SPADES, Faces.FOUR)
                 ]);
-                hand.CutCard = new Card(Suits.SPADES, Faces.TEN);
+                hand.cutCard = new Card(Suits.SPADES, Faces.TEN);
 
-                expect(hand.getScore()).toEqual(2);
+                expect(hand.calculateScore()).toEqual(2);
             });
 
             it('should count a 4 card 15', () => {
@@ -109,9 +109,9 @@ describe('CribbageHand', () => {
                     new Card(Suits.DIAMONDS, Faces.NINE),
                     new Card(Suits.SPADES, Faces.FOUR)
                 ]);
-                hand.CutCard = new Card(Suits.SPADES, Faces.SEVEN);
+                hand.cutCard = new Card(Suits.SPADES, Faces.SEVEN);
 
-                expect(hand.getScore()).toEqual(2);
+                expect(hand.calculateScore()).toEqual(2);
             });
         });
 
@@ -123,9 +123,9 @@ describe('CribbageHand', () => {
                     new Card(Suits.SPADES, Faces.QUEEN),
                     new Card(Suits.CLUBS, Faces.TEN)
                 ]);
-                hand.CutCard = new Card(Suits.DIAMONDS, Faces.TWO);
+                hand.cutCard = new Card(Suits.DIAMONDS, Faces.TWO);
 
-                expect(hand.getScore()).toEqual(3);
+                expect(hand.calculateScore()).toEqual(3);
             });
 
             it('should count a 4 card run', () => {
@@ -135,9 +135,9 @@ describe('CribbageHand', () => {
                     new Card(Suits.SPADES, Faces.QUEEN),
                     new Card(Suits.CLUBS, Faces.TEN)
                 ]);
-                hand.CutCard = new Card(Suits.DIAMONDS, Faces.KING);
+                hand.cutCard = new Card(Suits.DIAMONDS, Faces.KING);
 
-                expect(hand.getScore()).toEqual(4);
+                expect(hand.calculateScore()).toEqual(4);
             });
 
             it('should count a high 5 card run', () => {
@@ -147,9 +147,9 @@ describe('CribbageHand', () => {
                     new Card(Suits.SPADES, Faces.QUEEN),
                     new Card(Suits.CLUBS, Faces.TEN)
                 ]);
-                hand.CutCard = new Card(Suits.DIAMONDS, Faces.KING);
+                hand.cutCard = new Card(Suits.DIAMONDS, Faces.KING);
 
-                expect(hand.getScore()).toEqual(5);
+                expect(hand.calculateScore()).toEqual(5);
             });
 
             it('should count a low 5 card run', () => {
@@ -159,9 +159,9 @@ describe('CribbageHand', () => {
                     new Card(Suits.SPADES, Faces.FOUR),
                     new Card(Suits.CLUBS, Faces.FIVE)
                 ]);
-                hand.CutCard = new Card(Suits.DIAMONDS, Faces.TWO);
+                hand.cutCard = new Card(Suits.DIAMONDS, Faces.TWO);
 
-                expect(hand.getScore()).toEqual(7); //extra two points because it also adds to 15
+                expect(hand.calculateScore()).toEqual(7); //extra two points because it also adds to 15
             });
         });
 
@@ -173,9 +173,9 @@ describe('CribbageHand', () => {
                     new Card(Suits.CLUBS, Faces.JACK),
                     new Card(Suits.CLUBS, Faces.TEN)
                 ]);
-                hand.CutCard = new Card(Suits.HEARTS, Faces.KING);
+                hand.cutCard = new Card(Suits.HEARTS, Faces.KING);
 
-                expect(hand.getScore()).toEqual(4);
+                expect(hand.calculateScore()).toEqual(4);
             });
 
             it('should not count a 4 card flush in crib', () => {
@@ -185,9 +185,9 @@ describe('CribbageHand', () => {
                     new Card(Suits.CLUBS, Faces.JACK),
                     new Card(Suits.CLUBS, Faces.TEN)
                 ], true);
-                hand.CutCard = new Card(Suits.HEARTS, Faces.KING);
+                hand.cutCard = new Card(Suits.HEARTS, Faces.KING);
 
-                expect(hand.getScore()).toEqual(0);
+                expect(hand.calculateScore()).toEqual(0);
             });
 
             it('should count a 5 card flush not in crib', () => {
@@ -197,9 +197,9 @@ describe('CribbageHand', () => {
                     new Card(Suits.CLUBS, Faces.QUEEN),
                     new Card(Suits.CLUBS, Faces.TEN)
                 ]);
-                hand.CutCard = new Card(Suits.CLUBS, Faces.KING);
+                hand.cutCard = new Card(Suits.CLUBS, Faces.KING);
 
-                expect(hand.getScore()).toEqual(5);
+                expect(hand.calculateScore()).toEqual(5);
             });
 
             it('should count a 5 card flush in crib', () => {
@@ -209,9 +209,9 @@ describe('CribbageHand', () => {
                     new Card(Suits.CLUBS, Faces.QUEEN),
                     new Card(Suits.CLUBS, Faces.TEN)
                 ], true);
-                hand.CutCard = new Card(Suits.CLUBS, Faces.KING);
+                hand.cutCard = new Card(Suits.CLUBS, Faces.KING);
 
-                expect(hand.getScore()).toEqual(5);
+                expect(hand.calculateScore()).toEqual(5);
             });
         });
 
@@ -223,9 +223,9 @@ describe('CribbageHand', () => {
                     new Card(Suits.SPADES, Faces.FIVE),
                     new Card(Suits.CLUBS, Faces.TEN)
                 ]);
-                hand.CutCard = new Card(Suits.HEARTS, Faces.FIVE);
+                hand.cutCard = new Card(Suits.HEARTS, Faces.FIVE);
 
-                expect(hand.getScore()).toEqual(28);
+                expect(hand.calculateScore()).toEqual(28);
             });
 
             it('should count 29 points', () => {
@@ -235,9 +235,9 @@ describe('CribbageHand', () => {
                     new Card(Suits.SPADES, Faces.FIVE),
                     new Card(Suits.CLUBS, Faces.JACK)
                 ]);
-                hand.CutCard = new Card(Suits.CLUBS, Faces.FIVE);
+                hand.cutCard = new Card(Suits.CLUBS, Faces.FIVE);
 
-                expect(hand.getScore()).toEqual(29);
+                expect(hand.calculateScore()).toEqual(29);
             });
 
             it('should count straight 8', () => {
@@ -247,9 +247,9 @@ describe('CribbageHand', () => {
                     new Card(Suits.HEARTS, Faces.ACE),
                     new Card(Suits.SPADES, Faces.THREE)
                 ]);
-                hand.CutCard = new Card(Suits.CLUBS, Faces.SEVEN);
+                hand.cutCard = new Card(Suits.CLUBS, Faces.SEVEN);
 
-                expect(hand.getScore()).toEqual(8);
+                expect(hand.calculateScore()).toEqual(8);
             });
 
             it('should count 15 2, 4 and a pair is 6', () => {
@@ -259,9 +259,9 @@ describe('CribbageHand', () => {
                     new Card(Suits.HEARTS, Faces.SEVEN),
                     new Card(Suits.SPADES, Faces.THREE)
                 ]);
-                hand.CutCard = new Card(Suits.CLUBS, Faces.KING);
+                hand.cutCard = new Card(Suits.CLUBS, Faces.KING);
 
-                expect(hand.getScore()).toEqual(6);
+                expect(hand.calculateScore()).toEqual(6);
             });
 
             it('should count all the straights and 15s', () => {
@@ -271,9 +271,9 @@ describe('CribbageHand', () => {
                     new Card(Suits.HEARTS, Faces.SEVEN),
                     new Card(Suits.SPADES, Faces.SIX)
                 ]);
-                hand.CutCard = new Card(Suits.CLUBS, Faces.NINE);
+                hand.cutCard = new Card(Suits.CLUBS, Faces.NINE);
 
-                expect(hand.getScore()).toEqual(16);
+                expect(hand.calculateScore()).toEqual(16);
             });
         });
     });
@@ -282,9 +282,16 @@ describe('CribbageHand', () => {
 describe('CribbagePlayer', () => {
     describe('constructor', () => {
         it('should use defaults when no arguments are passed', () => {
-            const player = new CribbagePlayer();
+            const cards = [
+                new Card(Suits.HEARTS, Faces.TWO),
+                new Card(Suits.DIAMONDS, Faces.FIVE),
+                new Card(Suits.CLUBS, Faces.SEVEN),
+                new Card(Suits.HEARTS, Faces.SEVEN),
+            ];
+            const hand = new CribbageHand(cards);
+            const player = new CribbagePlayer(hand);
 
-            expect(player.Hand).toBeTruthy();
+            expect(player.hand).toBeTruthy();
         });
     });
 
@@ -297,12 +304,34 @@ describe('CribbagePlayer', () => {
                 new Card(Suits.HEARTS, Faces.SEVEN),
             ];
             const hand = new CribbageHand(cards);
-            hand.CutCard = new Card(Suits.SPADES, Faces.NINE);
+            hand.cutCard = new Card(Suits.SPADES, Faces.NINE);
             const player = new CribbagePlayer(hand);
 
             player.scoreHand();
 
             expect(player.Score).toEqual(2);
         });
+    });
+
+    describe('discardToCrib method', () => {
+        const eightOfSpades = new Card(Suits.SPADES, Faces.EIGHT);
+        const eightOfClubs = new Card(Suits.CLUBS, Faces.EIGHT);
+       it('should discard the right cards to crib #1', () => {
+           const cards = [
+               eightOfSpades,
+               new Card(Suits.CLUBS, Faces.JACK),
+               eightOfClubs,
+               new Card(Suits.HEARTS, Faces.FIVE),
+               new Card(Suits.SPADES, Faces.TEN),
+               new Card(Suits.DIAMONDS, Faces.JACK),
+           ];
+           const hand = new CribbageHand(cards);
+           hand.cutCard = new Card(Suits.SPADES, Faces.THREE);
+           const player = new CribbagePlayer(hand);
+
+           const cribCards = player.compPassToCrib();
+
+           expect(cribCards).toEqual([eightOfSpades, eightOfClubs]);
+       })
     });
 });
