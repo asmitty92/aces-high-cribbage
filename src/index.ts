@@ -135,7 +135,7 @@ export class CribbagePlayer extends CardPlayer {
         this.myScore += this.hand.calculateScore();
     }
 
-    compPassToCrib(): [Card, Card] {
+    discardToCrib(): [Card, Card] {
         const combinations = getCombinations(this.hand.cards, 4);
         let maxScore = 0;
         let maxHand = undefined as CribbageHand;

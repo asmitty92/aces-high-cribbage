@@ -316,7 +316,8 @@ describe('CribbagePlayer', () => {
     describe('discardToCrib method', () => {
         const eightOfSpades = new Card(Suits.SPADES, Faces.EIGHT);
         const eightOfClubs = new Card(Suits.CLUBS, Faces.EIGHT);
-       it('should discard the right cards to crib #1', () => {
+
+        it('should discard the right cards to crib', async () => {
            const cards = [
                eightOfSpades,
                new Card(Suits.CLUBS, Faces.JACK),
@@ -329,9 +330,89 @@ describe('CribbagePlayer', () => {
            hand.cutCard = new Card(Suits.SPADES, Faces.THREE);
            const player = new CribbagePlayer(hand);
 
-           const cribCards = player.compPassToCrib();
+           const cribCards = player.discardToCrib();
 
            expect(cribCards).toEqual([eightOfSpades, eightOfClubs]);
-       })
+       });
+
+        it('should successfully discard the right cards when there is a tie', async () => {
+           const nineOfHearts = new Card(Suits.HEARTS, Faces.NINE);
+           const nineOfDiamonds = new Card(Suits.DIAMONDS, Faces.NINE);
+           const cards = [
+               new Card(Suits.HEARTS, Faces.FIVE),
+               new Card(Suits.DIAMONDS, Faces.FIVE),
+               new Card(Suits.CLUBS, Faces.SEVEN),
+               new Card(Suits.SPADES, Faces.SEVEN),
+               nineOfHearts,
+               nineOfDiamonds,
+           ];
+           const hand = new CribbageHand(cards);
+           hand.cutCard = new Card(Suits.CLUBS, Faces.TWO);
+           const player = new CribbagePlayer(hand);
+
+           const cribCards = player.discardToCrib();
+
+           expect(cribCards).toEqual([nineOfHearts, nineOfDiamonds]);
+       });
+
+        it('should successfully handle a flush trade-off', async () => {
+            const eight = new Card(Suits.SPADES, Faces.EIGHT);
+            const nine = new Card(Suits.CLUBS, Faces.NINE);
+            const cards = [
+                new Card(Suits.HEARTS, Faces.FOUR),
+                new Card(Suits.HEARTS, Faces.FIVE),
+                new Card(Suits.HEARTS, Faces.SIX),
+                new Card(Suits.HEARTS, Faces.SEVEN),
+                eight,
+                nine,
+            ];
+            const hand = new CribbageHand(cards);
+            hand.cutCard = new Card(Suits.SPADES, Faces.FOUR);
+            const player = new CribbagePlayer(hand);
+
+            const cribCards = player.discardToCrib();
+
+            expect(cribCards).toEqual([eight, nine]);
+        });
+
+        it('should successfully handle multiple 15s with or without pairs', async () => {
+            const four = new Card(Suits.HEARTS, Faces.FOUR);
+            const ace = new Card(Suits.CLUBS, Faces.ACE);
+            const cards = [
+                new Card(Suits.HEARTS, Faces.FIVE),
+                new Card(Suits.DIAMONDS, Faces.FIVE),
+                new Card(Suits.CLUBS, Faces.TEN),
+                new Card(Suits.SPADES, Faces.KING),
+                four,
+                ace,
+            ];
+            const hand = new CribbageHand(cards);
+            hand.cutCard = new Card(Suits.CLUBS, Faces.TWO);
+            const player = new CribbagePlayer(hand);
+
+            const cribCards = player.discardToCrib();
+
+            expect(cribCards).toEqual([four, ace])
+        })
+
+        it('should successfully handle multiple 15s with straights', async () => {
+            const ten = new Card(Suits.HEARTS, Faces.TEN);
+            const king = new Card(Suits.SPADES, Faces.KING);
+            const cards = [
+                new Card(Suits.HEARTS, Faces.FOUR),
+                new Card(Suits.SPADES, Faces.FIVE),
+                new Card(Suits.DIAMONDS, Faces.SIX),
+                new Card(Suits.CLUBS, Faces.FIVE),
+                ten,
+                king,
+            ];
+            const hand = new CribbageHand(cards);
+            hand.cutCard = new Card(Suits.CLUBS, Faces.TWO);
+            const player = new CribbagePlayer(hand);
+
+            const cribCards = player.discardToCrib();
+
+            expect(cribCards).toEqual([ten, king]);
+        })
     });
 });
