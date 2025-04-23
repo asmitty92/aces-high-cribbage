@@ -91,7 +91,7 @@ export class CribbagePlayer extends CardPlayer {
     protected currentHand: CribbageHand;
 
     get score(): number {
-        return this.score;
+        return this.myScore;
     }
 
     get hand(): CribbageHand {

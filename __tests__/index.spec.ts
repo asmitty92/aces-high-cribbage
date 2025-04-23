@@ -309,7 +309,7 @@ describe('CribbagePlayer', () => {
 
             player.scoreHand();
 
-            expect(player.Score).toEqual(2);
+            expect(player.score).toEqual(2);
         });
     });
 
