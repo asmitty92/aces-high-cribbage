@@ -1,19 +1,19 @@
 {
-    "compilerOptions": {
-        "baseUrl": "./",
-        "target": "ES5",
-        "module": "CommonJS",
-        "declaration": true,
-        "noImplicitAny": false,
-        "downlevelIteration": true,
-        "removeComments": true,
-        "preserveConstEnums": true,
-        "noUnusedLocals": true,
-        "esModuleInterop": true,
-        "sourceMap": true,
-        "outDir": "lib/",
-        "skipLibCheck": true
-    },
-    "include": ["./**/*.ts"],
-    "exclude": ["**/node_modules/*", "**/__tests__/*", "**/lib/*", "example.ts"]
+  "compilerOptions": {
+    "baseUrl": "./",
+    "target": "ES5",
+    "module": "CommonJS",
+    "declaration": true,
+    "noImplicitAny": false,
+    "downlevelIteration": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "noUnusedLocals": true,
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "outDir": "lib/",
+    "skipLibCheck": true
+  },
+  "include": ["./**/*.ts"],
+  "exclude": ["**/node_modules/*", "**/__tests__/*", "**/lib/*", "example.ts"]
 }
