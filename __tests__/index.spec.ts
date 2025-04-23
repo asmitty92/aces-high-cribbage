@@ -288,8 +288,8 @@ describe('CribbagePlayer', () => {
                 new Card(Suits.CLUBS, Faces.SEVEN),
                 new Card(Suits.HEARTS, Faces.SEVEN),
             ];
-            const hand = new CribbageHand(cards);
-            const player = new CribbagePlayer(hand);
+            const player = new CribbagePlayer();
+            player.takeCards(cards);
 
             expect(player.hand).toBeTruthy();
         });
@@ -303,9 +303,9 @@ describe('CribbagePlayer', () => {
                 new Card(Suits.CLUBS, Faces.SEVEN),
                 new Card(Suits.HEARTS, Faces.SEVEN),
             ];
-            const hand = new CribbageHand(cards);
-            hand.cutCard = new Card(Suits.SPADES, Faces.NINE);
-            const player = new CribbagePlayer(hand);
+            const player = new CribbagePlayer();
+            player.takeCards(cards);
+            player.takeCutCard(new Card(Suits.SPADES, Faces.NINE));
 
             player.scoreHand();
 
@@ -326,9 +326,9 @@ describe('CribbagePlayer', () => {
                new Card(Suits.SPADES, Faces.TEN),
                new Card(Suits.DIAMONDS, Faces.JACK),
            ];
-           const hand = new CribbageHand(cards);
-           hand.cutCard = new Card(Suits.SPADES, Faces.THREE);
-           const player = new CribbagePlayer(hand);
+           const player = new CribbagePlayer();
+           player.takeCards(cards);
+           player.takeCutCard(new Card(Suits.SPADES, Faces.THREE));
 
            const cribCards = player.discardToCrib();
 
@@ -346,9 +346,9 @@ describe('CribbagePlayer', () => {
                nineOfHearts,
                nineOfDiamonds,
            ];
-           const hand = new CribbageHand(cards);
-           hand.cutCard = new Card(Suits.CLUBS, Faces.TWO);
-           const player = new CribbagePlayer(hand);
+           const player = new CribbagePlayer();
+           player.takeCards(cards);
+           player.takeCutCard( new Card(Suits.CLUBS, Faces.TWO));
 
            const cribCards = player.discardToCrib();
 
@@ -366,9 +366,9 @@ describe('CribbagePlayer', () => {
                 eight,
                 nine,
             ];
-            const hand = new CribbageHand(cards);
-            hand.cutCard = new Card(Suits.SPADES, Faces.FOUR);
-            const player = new CribbagePlayer(hand);
+            const player = new CribbagePlayer();
+            player.takeCards(cards);
+            player.takeCutCard(new Card(Suits.SPADES, Faces.FOUR));
 
             const cribCards = player.discardToCrib();
 
@@ -386,9 +386,9 @@ describe('CribbagePlayer', () => {
                 four,
                 ace,
             ];
-            const hand = new CribbageHand(cards);
-            hand.cutCard = new Card(Suits.CLUBS, Faces.TWO);
-            const player = new CribbagePlayer(hand);
+            const player = new CribbagePlayer();
+            player.takeCards(cards);
+            player.takeCutCard(new Card(Suits.CLUBS, Faces.TWO));
 
             const cribCards = player.discardToCrib();
 
@@ -406,9 +406,9 @@ describe('CribbagePlayer', () => {
                 ten,
                 king,
             ];
-            const hand = new CribbageHand(cards);
-            hand.cutCard = new Card(Suits.CLUBS, Faces.TWO);
-            const player = new CribbagePlayer(hand);
+            const player = new CribbagePlayer();
+            player.takeCards(cards);
+            player.takeCutCard(new Card(Suits.CLUBS, Faces.TWO));
 
             const cribCards = player.discardToCrib();
 

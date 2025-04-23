@@ -4,12 +4,24 @@
   "description": "",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
-  "directories": {
-    "lib": "lib"
-  },
+  "types": "lib/index.d.ts",
+  "files": [
+    "package.json",
+    "README.md",
+    "lib/**/*",
+    ".jsii"
+  ],
   "scripts": {
     "test": "jest --coverage",
-    "example": "npx ts-node example.ts"
+    "example": "npx ts-node example.ts",
+    "build": "jsii",
+    "build:watch": "jsii --watch",
+    "format": "prettier . -w && prettier . -c",
+    "lint": "eslint --fix . && eslint .",
+    "package": "jsii-pacmak",
+    "deploy:pypi": "publib-pypi",
+    "deploy:npm": "publib-npm",
+    "deploy:all": "publib-pypi && publib-npm"
   },
   "repository": {
     "type": "git",
@@ -21,18 +33,24 @@
     "url": "https://github.com/rubyclimber/aces-high-cribbage/issues"
   },
   "homepage": "https://github.com/rubyclimber/aces-high-cribbage#readme",
-  "dependencies": {
-    "jsii": "^5.7.4",
-    "jsii-pacmak": "^1.106.0",
-    "publib": "^0.2.938"
-  },
   "peerDependencies": {
-    "aces-high-core": "^2.4.0"
+    "aces-high-core": "^2.5.2"
   },
   "devDependencies": {
     "@types/jest": "^27.4.0",
     "@types/node": "^17.0.14",
     "jest": "^27.4.7",
-    "ts-jest": "^27.1.3"
+    "ts-jest": "^27.1.3",
+    "jsii": "^5.7.4",
+    "jsii-pacmak": "^1.106.0",
+    "publib": "^0.2.938",
+    "aces-high-core": "2.5.2"
+  },
+  "jsii": {
+    "versionFormat": "full",
+    "tsconfig": "tsconfig.json",
+    "validateTsconfig": "minimal",
+    "outdir": "dist",
+    "targets": {}
   }
 }

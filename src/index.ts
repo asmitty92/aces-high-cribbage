@@ -1,46 +1,15 @@
-import {Card, CardHand, CardPlayer, Faces} from "aces-high-core";
+import {Card, CardHand, CardPlayer, Faces, getCombinations, StandardDeck} from "aces-high-core";
 
-class ArrayItem<T> {
-    value: T;
-
-    constructor(value: T) {
-        this.value = value;
-    }
-}
-
-function getCombinations<T>(items: T[], itemCount: number) {
-    let combinations = [];
-
-    function generateCombinations(count: number, start: number, combo: ArrayItem<T>[]) {
-        count--;
-        for (let i = start; i < items.length; i++) {
-            combo[count] = new ArrayItem(items[i])
-            if (count == 0) {
-                combinations.push(
-                    combo
-                        .map(i => i.value)
-                );
-            } else {
-                start++;
-                generateCombinations(count, start, combo);
-            }
-        }
-    }
-
-    generateCombinations(itemCount, 0, []);
-
-    return combinations;
-}
 
 export class CribbageHand extends CardHand {
-    protected _cutCard: Card;
+    protected myCutCard: Card;
 
     get cutCard(): Card {
-        return this._cutCard;
+        return this.myCutCard;
     }
 
     set cutCard(value: Card) {
-        this._cutCard = value;
+        this.myCutCard = value;
     }
 
     constructor(cards: Array<Card>, private isCrib: boolean = false) {
@@ -58,7 +27,6 @@ export class CribbageHand extends CardHand {
         const values = tempCards.map(c => c.value);
 
         for (let i = 2; i <= tempCards.length; i++) {
-            // const combos = new Combinations(values, i);
             const combos = getCombinations(values, i);
             score += this.countFifteens(tempCards, i);
 
@@ -120,22 +88,38 @@ export class CribbageHand extends CardHand {
 
 export class CribbagePlayer extends CardPlayer {
     protected isComputer: boolean;
+    protected currentHand: CribbageHand;
 
-    get Score(): number {
+    get score(): number {
         return this.score;
     }
 
-    constructor(hand: CribbageHand, isComputer: boolean = false) {
-        super(hand);
+    get hand(): CribbageHand {
+        return this.currentHand;
+    }
+
+    constructor(isComputer: boolean = false) {
+        super();
         this.isComputer = isComputer;
         this.myScore = 0;
     }
 
-    scoreHand(): any {
+    takeCards(cards: Card[]): void {
+        this.currentHand = new CribbageHand(cards);
+    }
+
+    takeCutCard(card: Card): void {
+        if (!this.currentHand) {
+            throw new Error('No current hand assigned');
+        }
+        this.currentHand.cutCard = card;
+    }
+
+    scoreHand(): void {
         this.myScore += this.hand.calculateScore();
     }
 
-    discardToCrib(): [Card, Card] {
+    discardToCrib(): Card[] {
         const combinations = getCombinations(this.hand.cards, 4);
         let maxScore = 0;
         let maxHand = undefined as CribbageHand;
@@ -149,7 +133,21 @@ export class CribbagePlayer extends CardPlayer {
             }
         }
         const [card1, card2] = this.hand.cards.filter(card => !maxHand.cards.includes(card));
-        this.myHand = maxHand;
+        this.currentHand = maxHand;
         return [card1, card2];
+    }
+}
+
+export class CribbageGame {
+    protected myPlayer: CribbagePlayer;
+    protected myComputer: CribbagePlayer;
+    protected myDeck: StandardDeck;
+
+    constructor() {}
+
+    startGame() {
+        this.myPlayer = new CribbagePlayer();
+        this.myComputer = new CribbagePlayer(true);
+        this.myDeck = new StandardDeck();
     }
 }
