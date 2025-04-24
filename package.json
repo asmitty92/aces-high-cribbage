@@ -26,6 +26,7 @@
     "format": "prettier . -w && prettier . -c",
     "lint": "eslint --fix . && eslint .",
     "test": "jest --coverage --no-cache",
+    "testbed": "ts-node testbed.ts",
     "deploy:npm": "npm publish --access public"
   },
   "devDependencies": {
@@ -37,6 +38,7 @@
     "jest": "^29.7.0",
     "prettier-eslint": "^16.4.1",
     "ts-jest": "^29.3.2",
+    "ts-node": "^10.9.2",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.31.0"
   },

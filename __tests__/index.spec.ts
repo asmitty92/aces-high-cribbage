@@ -549,4 +549,24 @@ describe("CribbageGame", () => {
       expect(() => game.isOver).toThrow("Looks like we're missing a player");
     });
   });
+
+  describe("dealHand method", () => {
+    it("deals the player 6 cards", async () => {
+      const game = new CribbageGame();
+      game.startGame();
+
+      game.dealHand();
+
+      expect(game.player.hand?.size).toEqual(6);
+    });
+
+    it("deals the computer 6 cards", async() => {
+      const game = new CribbageGame();
+      game.startGame();
+
+      game.dealHand();
+
+      expect(game.computer.hand?.size).toEqual(6);
+    });
+  });
 });

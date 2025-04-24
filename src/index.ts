@@ -29,7 +29,7 @@ export class CribbageHand extends CardHand {
     score += this.countNobs();
     score += this.countFlush();
 
-    const tempCards = this.cards.concat([this.cutCard]);
+    const tempCards = !!this.cutCard ? this.cards.concat([this.cutCard]) : [...this.cards];
     const values = tempCards.map((c) => c.value);
 
     for (let i = 2; i <= tempCards.length; i++) {
@@ -180,11 +180,13 @@ export class CribbageGame {
 
   dealHand(): void {
     this.myDeck.fullShuffle();
-    while (this.player.hand.size !== 6 && this.computer.hand.size !== 6) {
-      const playerCards = [this.myDeck.deal(), this.myDeck.deal()];
-      this.player.takeCards(playerCards);
-      const computerCards = [this.myDeck.deal(), this.myDeck.deal()];
-      this.computer.takeCards(computerCards);
+    const playerCards = [];
+    const computerCards = [];
+    while (playerCards.length !== 6) {
+      playerCards.push(this.myDeck.deal(), this.myDeck.deal());
+      computerCards.push(this.myDeck.deal(), this.myDeck.deal());
     }
+    this.computer.takeCards(computerCards);
+    this.player.takeCards(playerCards);
   }
 }
