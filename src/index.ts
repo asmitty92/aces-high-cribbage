@@ -176,7 +176,7 @@ export class CribbageGame {
     this.myPlayer = new CribbagePlayer();
     this.myComputer = new CribbagePlayer(true);
     this.myDeck = new StandardDeck();
-  };
+  }
 
   dealHand(): void {
     this.myDeck.fullShuffle();
@@ -186,5 +186,5 @@ export class CribbageGame {
       const computerCards = [this.myDeck.deal(), this.myDeck.deal()];
       this.computer.takeCards(computerCards);
     }
-  };
+  }
 }

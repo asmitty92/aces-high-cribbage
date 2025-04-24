@@ -24,10 +24,9 @@ describe("CribbageHand", () => {
           new Card(Suits.SPADES, Faces.JACK), // Not matching cut card suit
         ]);
         hand.cutCard = new Card(Suits.CLUBS, Faces.FOUR);
-      
+
         expect(hand.calculateScore()).toEqual(0);
       });
-      
     });
 
     describe("counting sets", () => {
@@ -151,10 +150,9 @@ describe("CribbageHand", () => {
           new Card(Suits.CLUBS, Faces.THREE),
         ]);
         hand.cutCard = new Card(Suits.HEARTS, Faces.THREE);
-      
+
         expect(hand.calculateScore()).toEqual(21); // Three 3s = 6 + 3 runs of 3 = 9 + 3 fifteens = 6
       });
-      
 
       it("counts a 4 card run", () => {
         const hand = new CribbageHand([
@@ -176,7 +174,7 @@ describe("CribbageHand", () => {
           new Card(Suits.CLUBS, Faces.THREE),
         ]);
         hand.cutCard = new Card(Suits.CLUBS, Faces.SIX);
-      
+
         expect(hand.calculateScore()).toEqual(14); // Two runs of 4 = 8 + pair of 3s = 2 + 2 fifteens = 4
       });
 
@@ -330,7 +328,7 @@ describe("CribbageHand", () => {
           new Card(Suits.SPADES, Faces.THREE),
         ]);
         hand.cutCard = new Card(Suits.CLUBS, Faces.FIVE);
-      
+
         expect(hand.calculateScore()).toEqual(10); // Four unique fifteens: 10+5, 2+3+10, 10+5, 5+5+2+3, and a pair of fives
       });
     });
