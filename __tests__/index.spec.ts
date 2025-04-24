@@ -560,7 +560,7 @@ describe("CribbageGame", () => {
       expect(game.player.hand?.size).toEqual(6);
     });
 
-    it("deals the computer 6 cards", async() => {
+    it("deals the computer 6 cards", async () => {
       const game = new CribbageGame();
       game.startGame();
 

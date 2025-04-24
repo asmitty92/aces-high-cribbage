@@ -29,7 +29,7 @@ export class CribbageHand extends CardHand {
     score += this.countNobs();
     score += this.countFlush();
 
-    const tempCards = !!this.cutCard ? this.cards.concat([this.cutCard]) : [...this.cards];
+    const tempCards = this.cutCard ? this.cards.concat([this.cutCard]) : [...this.cards];
     const values = tempCards.map((c) => c.value);
 
     for (let i = 2; i <= tempCards.length; i++) {
