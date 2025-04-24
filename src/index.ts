@@ -11,6 +11,10 @@ export class CribbageHand extends CardHand {
     this.myCutCard = value;
   }
 
+  get size(): number {
+    return this.cards.length;
+  }
+
   constructor(
     cards: Array<Card>,
     private isCrib: boolean = false,
@@ -114,6 +118,7 @@ export class CribbagePlayer extends CardPlayer {
     if (!this.currentHand) {
       throw new Error("No current hand assigned");
     }
+
     this.currentHand.cutCard = card;
   }
 
@@ -145,11 +150,33 @@ export class CribbageGame {
   protected myComputer: CribbagePlayer;
   protected myDeck: StandardDeck;
 
+  get player(): CribbagePlayer {
+    return this.myPlayer;
+  }
+
+  get computer(): CribbagePlayer {
+    return this.myComputer;
+  }
+
+  get isOver(): boolean {
+    if (!this.player || !this.computer) {
+      throw new Error("Looks like we're missing a player");
+    }
+
+    if (this.player.score > 120 && this.computer.score > 120) {
+      throw new Error("Both players cannot win");
+    }
+
+    return this.player.score > 120 || this.computer.score > 120;
+  }
+
   constructor() {}
 
-  startGame() {
+  startGame: VoidFunction = () => {
     this.myPlayer = new CribbagePlayer();
     this.myComputer = new CribbagePlayer(true);
     this.myDeck = new StandardDeck();
-  }
+  };
+
+  dealHand: VoidFunction = () => {};
 }
