@@ -2,9 +2,19 @@
   "name": "aces-high-cribbage",
   "version": "1.0.0",
   "description": "",
+  "homepage": "https://github.com/rubyclimber/aces-high-cribbage#readme",
+  "bugs": {
+    "url": "https://github.com/rubyclimber/aces-high-cribbage/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rubyclimber/aces-high-cribbage.git"
+  },
+  "license": "MIT",
+  "author": "Aaron Smith",
   "main": "lib/index.js",
-  "typings": "lib/index.d.ts",
   "types": "lib/index.d.ts",
+  "typings": "lib/index.d.ts",
   "files": [
     "package.json",
     "README.md",
@@ -12,45 +22,30 @@
     ".jsii"
   ],
   "scripts": {
-    "test": "jest --coverage --no-cache",
-    "example": "npx ts-node example.ts",
-    "build": "jsii",
-    "build:watch": "jsii --watch",
+    "build": "tsc",
     "format": "prettier . -w && prettier . -c",
     "lint": "eslint --fix . && eslint .",
-    "package": "jsii-pacmak",
-    "deploy:pypi": "publib-pypi",
-    "deploy:npm": "publib-npm",
-    "deploy:all": "publib-pypi && publib-npm"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rubyclimber/aces-high-cribbage.git"
-  },
-  "author": "Aaron Smith",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/rubyclimber/aces-high-cribbage/issues"
-  },
-  "homepage": "https://github.com/rubyclimber/aces-high-cribbage#readme",
-  "peerDependencies": {
-    "aces-high-core": "^2.5.2"
+    "test": "jest --coverage --no-cache",
+    "deploy:npm": "npm publish --access public"
   },
   "devDependencies": {
+    "@eslint/js": "^9.25.1",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.14.1",
-    "aces-high-core": "2.5.2",
+    "aces-high-core": "2.5.3",
+    "eslint": "^9.25.1",
+    "eslint-config-prettier": "^10.1.2",
     "jest": "^29.7.0",
     "jsii": "^5.7.4",
     "jsii-pacmak": "^1.106.0",
+    "prettier-eslint": "^16.4.1",
     "publib": "^0.2.938",
     "ts-jest": "^29.3.2",
     "typescript": "^5.8.3",
-    "@eslint/js": "^9.25.1",
-    "eslint": "^9.25.1",
-    "eslint-config-prettier": "^10.1.2",
-    "prettier-eslint": "^16.4.1",
     "typescript-eslint": "^8.31.0"
+  },
+  "peerDependencies": {
+    "aces-high-core": "^2.5.3"
   },
   "jsii": {
     "versionFormat": "full",

@@ -75,16 +75,6 @@ jobs:
           node-version: 'lts/*'
           registry-url: 'https://registry.npmjs.org'
       
-      - name: Setup python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.13'
-      
-      - name: Install twine
-        run: |
-          pip install packaging --user
-          pip install twine --user
-
       - name: Install dependencies
         run: |
           npm ci
@@ -92,17 +82,7 @@ jobs:
       - name: Run TypeScript compile
         run: |
           npm run build
-
-      - name: JSII Package
-        run: |
-          npm run package
-
-      - name: JSII Deploy Python
-        run: |
-          npm run deploy:pypi
-
-      - run: cat /home/runner/work/_temp/.npmrc
       
-      - name: JSII Deploy NPM
+      - name: Publish to NPM
         run: |
           npm run deploy:npm

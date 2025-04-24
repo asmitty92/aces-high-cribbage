@@ -172,11 +172,19 @@ export class CribbageGame {
 
   constructor() {}
 
-  startGame: VoidFunction = () => {
+  startGame(): void {
     this.myPlayer = new CribbagePlayer();
     this.myComputer = new CribbagePlayer(true);
     this.myDeck = new StandardDeck();
   };
 
-  dealHand: VoidFunction = () => {};
+  dealHand(): void {
+    this.myDeck.fullShuffle();
+    while (this.player.hand.size !== 6 && this.computer.hand.size !== 6) {
+      const playerCards = [this.myDeck.deal(), this.myDeck.deal()];
+      this.player.takeCards(playerCards);
+      const computerCards = [this.myDeck.deal(), this.myDeck.deal()];
+      this.computer.takeCards(computerCards);
+    }
+  };
 }
