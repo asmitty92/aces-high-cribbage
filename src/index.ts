@@ -1,4 +1,5 @@
-import { Card, CardHand, CardPlayer, Faces, getCombinations, StandardDeck } from "aces-high-core";
+import { CardHand, Card, CardPlayer, StandardDeck, getCombinations, Faces } from "aces-high-core";
+
 
 export class CribbageHand extends CardHand {
   protected myCutCard: Card;
@@ -23,7 +24,7 @@ export class CribbageHand extends CardHand {
   }
 
   calculateScore(): number {
-    const runCounts = { 3: 0, 4: 0, 5: 0 };
+    const runCounts: Record<number, number> = { 3: 0, 4: 0, 5: 0 };
     let score = 0;
 
     score += this.countNobs();
@@ -51,6 +52,11 @@ export class CribbageHand extends CardHand {
     }
 
     return score;
+  }
+
+  takeCardAt(index: number): Card {
+    const [card] = this.cards.splice(index, 1);
+    return card;
   }
 
   private countNobs(): number {
@@ -149,6 +155,7 @@ export class CribbageGame {
   protected myPlayer: CribbagePlayer;
   protected myComputer: CribbagePlayer;
   protected myDeck: StandardDeck;
+  protected _crib: Card[] = [];
 
   get player(): CribbagePlayer {
     return this.myPlayer;
@@ -170,15 +177,19 @@ export class CribbageGame {
     return this.player.score > 120 || this.computer.score > 120;
   }
 
+  get crib(): Card[] {
+    return this._crib;
+  }
+
   constructor() {}
 
-  startGame(): void {
+  startGame: VoidFunction = () => {
     this.myPlayer = new CribbagePlayer();
     this.myComputer = new CribbagePlayer(true);
     this.myDeck = new StandardDeck();
   }
 
-  dealHand(): void {
+  dealHand: VoidFunction = () => {
     this.myDeck.fullShuffle();
     const playerCards = [];
     const computerCards = [];
@@ -188,5 +199,13 @@ export class CribbageGame {
     }
     this.computer.takeCards(computerCards);
     this.player.takeCards(playerCards);
-  }
+  };
+
+  putInCrib = (cards: Card[]): void => {
+    this.crib.push(...cards);
+  };
+
+  clearCrib: VoidFunction = () => {
+    this._crib.length = 0;
+  };
 }

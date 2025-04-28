@@ -361,7 +361,6 @@ describe("CribbagePlayer", () => {
       ];
       const player = new CribbagePlayer();
       player.takeCards(cards);
-      player.takeCutCard(new Card(Suits.SPADES, Faces.NINE));
 
       player.scoreHand();
 
@@ -384,7 +383,6 @@ describe("CribbagePlayer", () => {
       ];
       const player = new CribbagePlayer();
       player.takeCards(cards);
-      player.takeCutCard(new Card(Suits.SPADES, Faces.THREE));
 
       const cribCards = player.discardToCrib();
 
@@ -404,7 +402,6 @@ describe("CribbagePlayer", () => {
       ];
       const player = new CribbagePlayer();
       player.takeCards(cards);
-      player.takeCutCard(new Card(Suits.CLUBS, Faces.TWO));
 
       const cribCards = player.discardToCrib();
 
@@ -424,7 +421,6 @@ describe("CribbagePlayer", () => {
       ];
       const player = new CribbagePlayer();
       player.takeCards(cards);
-      player.takeCutCard(new Card(Suits.SPADES, Faces.FOUR));
 
       const cribCards = player.discardToCrib();
 
@@ -444,7 +440,6 @@ describe("CribbagePlayer", () => {
       ];
       const player = new CribbagePlayer();
       player.takeCards(cards);
-      player.takeCutCard(new Card(Suits.CLUBS, Faces.TWO));
 
       const cribCards = player.discardToCrib();
 
@@ -464,7 +459,6 @@ describe("CribbagePlayer", () => {
       ];
       const player = new CribbagePlayer();
       player.takeCards(cards);
-      player.takeCutCard(new Card(Suits.CLUBS, Faces.TWO));
 
       const cribCards = player.discardToCrib();
 
@@ -498,6 +492,7 @@ describe("CribbageGame", () => {
     game = new CribbageGame();
     game.startGame();
   });
+
   describe("startGame method", () => {
     it("starts a game", async () => {
       expect(game.player).toBeDefined();
@@ -520,6 +515,17 @@ describe("CribbageGame", () => {
       });
 
       expect(game.isOver).toEqual(true);
+    });
+
+    it("returns false if the player and computer are both 120 or below", async() => {
+      Object.defineProperty(game.player, "score", {
+        get: jest.fn(() => 120),
+      });
+      Object.defineProperty(game.computer, "score", {
+        get: jest.fn(() => 120),
+      });
+
+      expect(game.isOver).toBe(false);
     });
 
     it("throws an error if both players are over 120", async () => {
@@ -567,6 +573,26 @@ describe("CribbageGame", () => {
       game.dealHand();
 
       expect(game.computer.hand?.size).toEqual(6);
+    });
+  });
+
+  describe("crib handling", () => {
+    it("has a property to fetch the crib", async() => {
+      expect(game.crib).toEqual([]);
+    });
+
+    it("has a method to add cards to the crib", async() => {
+      game.putInCrib([new Card(Suits.DIAMONDS, Faces.TWO)]);
+      
+      expect(game.crib.length).toEqual(1);
+    });
+
+    it("has a method to clear the crib", async() => {
+      game.putInCrib([new Card(Suits.CLUBS, Faces.KING)]);
+
+      game.clearCrib();
+
+      expect(game.crib).toEqual([]);
     });
   });
 });
