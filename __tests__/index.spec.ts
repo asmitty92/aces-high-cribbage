@@ -333,6 +333,32 @@ describe("CribbageHand", () => {
       });
     });
   });
+
+  describe("takeCardAt() method", () => {
+    it("removes the right card from the hand", async() => {
+      const twoOfClubs = new Card(Suits.CLUBS, Faces.TWO);
+      const cards = [
+        new Card(Suits.CLUBS, Faces.ACE),
+        twoOfClubs,
+        new Card(Suits.DIAMONDS, Faces.THREE)
+      ];
+      const hand = new CribbageHand(cards);
+
+      const card = hand.takeCardAt(1);
+
+      expect(card).toBe(twoOfClubs);
+      expect(hand.size).toEqual(2);
+    });
+
+    it("throws an error when the index isn't in the hand", async() => {
+      const cards = [
+        new Card(Suits.DIAMONDS, Faces.ACE)
+      ];
+      const hand = new CribbageHand(cards);
+      
+      expect(() => hand.takeCardAt(1)).toThrow("Invalid index, hand only has 1 cards");
+    });
+  });
 });
 
 describe("CribbagePlayer", () => {

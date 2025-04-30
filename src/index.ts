@@ -55,8 +55,11 @@ export class CribbageHand extends CardHand {
   }
 
   takeCardAt(index: number): Card {
-    const [card] = this.cards.splice(index, 1);
-    return card;
+    if (index >= this.cards.length) {
+      throw new Error(`Invalid index, hand only has ${this.cards.length} cards`);
+    }
+
+    return this.cards.splice(index, 1)[0];
   }
 
   private countNobs(): number {
