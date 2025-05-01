@@ -1,6 +1,5 @@
 import { CardHand, Card, CardPlayer, StandardDeck, getCombinations, Faces } from "aces-high-core";
 
-
 export class CribbageHand extends CardHand {
   protected myCutCard: Card;
 
@@ -101,6 +100,7 @@ export class CribbageHand extends CardHand {
   }
 }
 
+
 export class CribbagePlayer extends CardPlayer {
   protected isComputer: boolean;
   protected currentHand: CribbageHand;
@@ -135,7 +135,30 @@ export class CribbagePlayer extends CardPlayer {
     this.myScore += this.hand.calculateScore();
   }
 
-  discardToCrib(): Card[] {
+  discardToCrib = (index1: number = undefined, index2: number = undefined) => {
+    this.validateIndices(index1, index2);
+
+    if (this.isComputer) {
+      return this.compDiscardToCrib();
+    }
+
+    // we always want to return the card at the higher index first to avoid shifting the list and making the higher index invalid
+    if (index1 > index2) {
+      return [this.hand.takeCardAt(index1), this.hand.takeCardAt(index2)];
+    }
+    return [this.hand.takeCardAt(index2), this.hand.takeCardAt(index1)];
+  };
+
+  protected validateIndices = (index1: number, index2: number) => {
+    if ((index1 == null || index2 == null) && !this.isComputer) {
+      throw new Error("Must pass indexes for human player");
+    }
+    if (index1 != null && index2 != null && index1 === index2) {
+      throw new Error("Cannot pass the same index twice");
+    }
+  };
+
+  protected compDiscardToCrib(): Card[] {
     const combinations = getCombinations(this.hand.cards, 4);
     let maxScore = 0;
     let maxHand = undefined as CribbageHand;
@@ -190,7 +213,7 @@ export class CribbageGame {
     this.myPlayer = new CribbagePlayer();
     this.myComputer = new CribbagePlayer(true);
     this.myDeck = new StandardDeck();
-  }
+  };
 
   dealHand: VoidFunction = () => {
     this.myDeck.fullShuffle();

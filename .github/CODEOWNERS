@@ -1,2 +1,6 @@
-# These owners will be the default owners for everything in the repo.
-* @pythonclimber
+# CODEOWNERS file
+# This file specifies who is responsible for code in this repository.
+# Lines starting with '#' are comments.
+
+# Define the default owner for the entire repository
+* @asmitty92

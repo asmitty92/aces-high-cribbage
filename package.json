@@ -13,13 +13,13 @@
   "license": "MIT",
   "author": "Aaron Smith",
   "main": "lib/index.js",
+  "type": "module",
   "types": "lib/index.d.ts",
   "typings": "lib/index.d.ts",
   "files": [
     "package.json",
     "README.md",
-    "lib/**/*",
-    ".jsii"
+    "lib/**/*"
   ],
   "scripts": {
     "build": "tsc",
@@ -43,13 +43,6 @@
     "typescript-eslint": "^8.31.0"
   },
   "dependencies": {
-    "aces-high-core": "^2.5.4"
-  },
-  "jsii": {
-    "versionFormat": "full",
-    "tsconfig": "tsconfig.json",
-    "validateTsconfig": "minimal",
-    "outdir": "dist",
-    "targets": {}
+    "aces-high-core": "^3.0.1"
   }
 }

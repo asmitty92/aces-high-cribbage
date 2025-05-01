@@ -335,13 +335,9 @@ describe("CribbageHand", () => {
   });
 
   describe("takeCardAt() method", () => {
-    it("removes the right card from the hand", async() => {
+    it("removes the right card from the hand", async () => {
       const twoOfClubs = new Card(Suits.CLUBS, Faces.TWO);
-      const cards = [
-        new Card(Suits.CLUBS, Faces.ACE),
-        twoOfClubs,
-        new Card(Suits.DIAMONDS, Faces.THREE)
-      ];
+      const cards = [new Card(Suits.CLUBS, Faces.ACE), twoOfClubs, new Card(Suits.DIAMONDS, Faces.THREE)];
       const hand = new CribbageHand(cards);
 
       const card = hand.takeCardAt(1);
@@ -350,12 +346,10 @@ describe("CribbageHand", () => {
       expect(hand.size).toEqual(2);
     });
 
-    it("throws an error when the index isn't in the hand", async() => {
-      const cards = [
-        new Card(Suits.DIAMONDS, Faces.ACE)
-      ];
+    it("throws an error when the index isn't in the hand", async () => {
+      const cards = [new Card(Suits.DIAMONDS, Faces.ACE)];
       const hand = new CribbageHand(cards);
-      
+
       expect(() => hand.takeCardAt(1)).toThrow("Invalid index, hand only has 1 cards");
     });
   });
@@ -407,7 +401,7 @@ describe("CribbagePlayer", () => {
         new Card(Suits.SPADES, Faces.TEN),
         new Card(Suits.DIAMONDS, Faces.JACK),
       ];
-      const player = new CribbagePlayer();
+      const player = new CribbagePlayer(true);
       player.takeCards(cards);
 
       const cribCards = player.discardToCrib();
@@ -426,7 +420,7 @@ describe("CribbagePlayer", () => {
         nineOfHearts,
         nineOfDiamonds,
       ];
-      const player = new CribbagePlayer();
+      const player = new CribbagePlayer(true);
       player.takeCards(cards);
 
       const cribCards = player.discardToCrib();
@@ -445,7 +439,7 @@ describe("CribbagePlayer", () => {
         eight,
         nine,
       ];
-      const player = new CribbagePlayer();
+      const player = new CribbagePlayer(true);
       player.takeCards(cards);
 
       const cribCards = player.discardToCrib();
@@ -464,7 +458,7 @@ describe("CribbagePlayer", () => {
         four,
         ace,
       ];
-      const player = new CribbagePlayer();
+      const player = new CribbagePlayer(true);
       player.takeCards(cards);
 
       const cribCards = player.discardToCrib();
@@ -483,12 +477,60 @@ describe("CribbagePlayer", () => {
         ten,
         king,
       ];
-      const player = new CribbagePlayer();
+      const player = new CribbagePlayer(true);
       player.takeCards(cards);
 
       const cribCards = player.discardToCrib();
 
       expect(cribCards).toEqual([ten, king]);
+    });
+
+    it("throws an error if the player is not a computer and no indexes are passed", async () => {
+      const player = new CribbagePlayer();
+
+      expect(() => player.discardToCrib()).toThrow("Must pass indexes for human player");
+    });
+
+    it("throws an error if the player is not a computer and only index1 is passed", async () => {
+      const player = new CribbagePlayer();
+
+      expect(() => player.discardToCrib(1)).toThrow("Must pass indexes for human player");
+    });
+
+    it("throws an error if the player is not a computer and only index2 is passed", async () => {
+      const player = new CribbagePlayer();
+
+      expect(() => player.discardToCrib(undefined, 1)).toThrow("Must pass indexes for human player");
+    });
+
+    it("removes cards when human player passes small index first", async () => {
+      const twoOfSpades = new Card(Suits.SPADES, Faces.TWO);
+      const threeOfClubs = new Card(Suits.CLUBS, Faces.THREE);
+      const player = new CribbagePlayer();
+      player.takeCards([twoOfSpades, threeOfClubs]);
+
+      const cards = player.discardToCrib(0, 1);
+
+      expect(cards).toEqual([threeOfClubs, twoOfSpades]);
+      expect(player.hand.size).toEqual(0);
+    });
+
+    it("removes cards when human player passes large index first", async () => {
+      const twoOfSpades = new Card(Suits.SPADES, Faces.TWO);
+      const threeOfClubs = new Card(Suits.CLUBS, Faces.THREE);
+      const player = new CribbagePlayer();
+      player.takeCards([twoOfSpades, threeOfClubs]);
+
+      const cards = player.discardToCrib(1, 0);
+
+      expect(cards).toEqual([threeOfClubs, twoOfSpades]);
+      expect(player.hand.size).toEqual(0);
+    });
+
+    it("should throw an error if user passes the same index twice", async () => {
+      const player = new CribbagePlayer();
+
+      expect(() => player.discardToCrib(0, 0)).toThrow("Cannot pass the same index twice");
     });
   });
 
@@ -543,7 +585,7 @@ describe("CribbageGame", () => {
       expect(game.isOver).toEqual(true);
     });
 
-    it("returns false if the player and computer are both 120 or below", async() => {
+    it("returns false if the player and computer are both 120 or below", async () => {
       Object.defineProperty(game.player, "score", {
         get: jest.fn(() => 120),
       });
@@ -603,17 +645,17 @@ describe("CribbageGame", () => {
   });
 
   describe("crib handling", () => {
-    it("has a property to fetch the crib", async() => {
+    it("has a property to fetch the crib", async () => {
       expect(game.crib).toEqual([]);
     });
 
-    it("has a method to add cards to the crib", async() => {
+    it("has a method to add cards to the crib", async () => {
       game.putInCrib([new Card(Suits.DIAMONDS, Faces.TWO)]);
-      
+
       expect(game.crib.length).toEqual(1);
     });
 
-    it("has a method to clear the crib", async() => {
+    it("has a method to clear the crib", async () => {
       game.putInCrib([new Card(Suits.CLUBS, Faces.KING)]);
 
       game.clearCrib();

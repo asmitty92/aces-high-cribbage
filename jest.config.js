@@ -1,17 +1,15 @@
-/** @type {import('ts-jest').JestConfigWithTsJest} */
-module.exports = {
-  preset: "ts-jest",
+// jest.config.js
+export default {
+  preset: "ts-jest/presets/default-esm",
   testEnvironment: "node",
-  roots: ["<rootDir>"],
-  testMatch: ["**/__tests__/**/*.+(ts|tsx|js)", "**/?(*.)+(spec|test).+(ts|tsx|js)"],
+  moduleNameMapper: {
+    "^(\\.{1,2}/.*)\\.js$": "$1",
+  },
   transform: {
-    "^.+\\.(ts|tsx)$": "ts-jest",
+    "^.+\\.[tj]s$": ["ts-jest", { useESM: true }],
   },
-  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
-  globals: {
-    "ts-jest": {
-      tsconfig: "tsconfig.json", // or another path if you're using a specific one for tests
-      diagnostics: true, // helpful during debugging, set to false if annoying
-    },
-  },
+  extensionsToTreatAsEsm: [".ts"],
+  transformIgnorePatterns: [
+    "node_modules/(?!aces-high-core)", // <-- tell Jest to transform aces-high-core
+  ],
 };
