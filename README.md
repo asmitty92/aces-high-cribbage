@@ -5,14 +5,17 @@ Aces High Cribbage is a TypeScript-based game engine for Cribbage, designed to s
 ## Features
 
 - **Rule-Based Scoring**:
+
   - Supports Nobs, fifteens, sets, runs, flushes, and other scoring combinations.
   - Handles complex hand and crib scoring scenarios.
 
 - **Gameplay Mechanics**:
+
   - Implements cut card logic and crib-specific rules.
   - Provides utilities for managing players' hands and the crib.
 
 - **Reusable Design**:
+
   - Modular architecture for integration with CLI, web, or mobile UIs.
   - Extendable for custom Cribbage variants.
 
@@ -38,7 +41,7 @@ yarn add aces-high-cribbage
 Here’s a quick example of how to use Aces High Cribbage to evaluate a hand’s score:
 
 ```typescript
-import { CribbageHand, Card, Suits, Faces } from 'aces-high-cribbage';
+import { CribbageHand, Card, Suits, Faces } from "aces-high-cribbage";
 
 // Create a Cribbage hand
 const hand = new CribbageHand([
@@ -53,7 +56,7 @@ hand.cutCard = new Card(Suits.CLUBS, Faces.FIVE);
 
 // Calculate the score
 const score = hand.calculateScore();
-console.log('Hand score:', score); // Output: 29 (highest possible Cribbage hand score)
+console.log("Hand score:", score); // Output: 29 (highest possible Cribbage hand score)
 ```
 
 ## Development

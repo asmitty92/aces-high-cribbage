@@ -100,7 +100,6 @@ export class CribbageHand extends CardHand {
   }
 }
 
-
 export class CribbagePlayer extends CardPlayer {
   protected isComputer: boolean;
   protected currentHand: CribbageHand;
