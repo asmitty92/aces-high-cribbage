@@ -1,25 +1,28 @@
-import { CardHand, Card, CardPlayer, StandardDeck, getCombinations, Faces } from "aces-high-core";
+import { CardHand, Card, CardPlayer, StandardDeck, getCombinations, Face, Faces } from "aces-high-core";
 
-export class CribbageHand extends CardHand {
-  protected myCutCard: Card;
+type CribbageCard = Card<Face>;
 
-  get cutCard(): Card {
+export class CribbageHand extends CardHand<Face> {
+  protected myCutCard: CribbageCard;
+
+  get cutCard(): CribbageCard {
     return this.myCutCard;
   }
 
-  set cutCard(value: Card) {
+  set cutCard(value: CribbageCard) {
     this.myCutCard = value;
   }
 
   get size(): number {
-    return this.cards.length;
+    return this._cards.length;
   }
 
   constructor(
-    cards: Array<Card>,
+    cards: CribbageCard[],
+    accessKey: symbol,
     private isCrib: boolean = false,
   ) {
-    super(cards);
+    super(cards, accessKey);
   }
 
   calculateScore(): number {
@@ -29,7 +32,7 @@ export class CribbageHand extends CardHand {
     score += this.countNobs();
     score += this.countFlush();
 
-    const tempCards = this.cutCard ? this.cards.concat([this.cutCard]) : [...this.cards];
+    const tempCards = this.cutCard ? this._cards.concat([this.cutCard]) : [...this._cards];
     const values = tempCards.map((c) => c.value);
 
     for (let i = 2; i <= tempCards.length; i++) {
@@ -53,22 +56,22 @@ export class CribbageHand extends CardHand {
     return score;
   }
 
-  takeCardAt(index: number): Card {
-    if (index >= this.cards.length) {
-      throw new Error(`Invalid index, hand only has ${this.cards.length} cards`);
+  takeCardAt(index: number): CribbageCard {
+    if (index >= this._cards.length) {
+      throw new Error(`Invalid index, hand only has ${this._cards.length} cards`);
     }
 
-    return this.cards.splice(index, 1)[0];
+    return this._cards.splice(index, 1)[0];
   }
 
   private countNobs(): number {
-    if (!!this.cutCard && this.cards.some((card) => card.suit == this.cutCard.suit && card.face == Faces.JACK)) {
+    if (!!this.cutCard && this._cards.some((card) => card.suit == this.cutCard.suit && card.face == Faces.JACK)) {
       return 1;
     }
     return 0;
   }
 
-  private countFifteens(tempCards: Card[], comboSize: number): number {
+  private countFifteens(tempCards: CribbageCard[], comboSize: number): number {
     const sumValues = tempCards.map((c) => (c.value >= 10 ? 10 : c.value));
     const sumCombos = getCombinations(sumValues, comboSize);
     let score = 0;
@@ -88,7 +91,7 @@ export class CribbageHand extends CardHand {
   }
 
   private countFlush(): number {
-    const suits = new Set(this.cards.map((c) => c.suit));
+    const suits = new Set(this._cards.map((c) => c.suit));
     if (suits.size == 1) {
       if (!!this.cutCard && suits.has(this.cutCard.suit)) {
         return 5;
@@ -100,7 +103,9 @@ export class CribbageHand extends CardHand {
   }
 }
 
-export class CribbagePlayer extends CardPlayer {
+
+export class CribbagePlayer extends CardPlayer<Face> {
+  private handAccessKey: symbol;
   protected isComputer: boolean;
   protected currentHand: CribbageHand;
 
@@ -118,11 +123,13 @@ export class CribbagePlayer extends CardPlayer {
     this.myScore = 0;
   }
 
-  takeCards(cards: Card[]): void {
-    this.currentHand = new CribbageHand(cards);
+  acceptCards(cards: CribbageCard[]): void {
+    const keyType = this.isComputer ? "Computer" : "Human";
+    this.handAccessKey = Symbol(`${keyType}CribbageHandKey`);
+    this.currentHand = new CribbageHand(cards, this.handAccessKey);
   }
 
-  takeCutCard(card: Card): void {
+  takeCutCard(card: CribbageCard): void {
     if (!this.currentHand) {
       throw new Error("No current hand assigned");
     }
@@ -157,12 +164,13 @@ export class CribbagePlayer extends CardPlayer {
     }
   };
 
-  protected compDiscardToCrib(): Card[] {
-    const combinations = getCombinations(this.hand.cards, 4);
+  protected compDiscardToCrib(): CribbageCard[] {
+    const combinations = getCombinations(this.hand.cards(this.handAccessKey), 4);
     let maxScore = 0;
     let maxHand = undefined as CribbageHand;
+    const scoringAccessKey = Symbol("ScoringAccessKey");
     for (const combo of combinations) {
-      const hand = new CribbageHand(combo);
+      const hand = new CribbageHand(combo, scoringAccessKey);
       hand.cutCard = (this.hand as CribbageHand).cutCard;
       const score = hand.calculateScore();
       if (score > maxScore) {
@@ -170,7 +178,7 @@ export class CribbagePlayer extends CardPlayer {
         maxHand = hand;
       }
     }
-    const [card1, card2] = this.hand.cards.filter((card) => !maxHand.cards.includes(card));
+    const [card1, card2] = this.hand.cards(this.handAccessKey).filter((card) => !maxHand.cards(scoringAccessKey).includes(card));
     this.currentHand = maxHand;
     return [card1, card2];
   }
@@ -180,7 +188,7 @@ export class CribbageGame {
   protected myPlayer: CribbagePlayer;
   protected myComputer: CribbagePlayer;
   protected myDeck: StandardDeck;
-  protected _crib: Card[] = [];
+  protected _crib: CribbageCard[] = [];
 
   get player(): CribbagePlayer {
     return this.myPlayer;
@@ -202,7 +210,7 @@ export class CribbageGame {
     return this.player.score > 120 || this.computer.score > 120;
   }
 
-  get crib(): Card[] {
+  get crib(): CribbageCard[] {
     return this._crib;
   }
 
@@ -222,11 +230,11 @@ export class CribbageGame {
       playerCards.push(this.myDeck.deal(), this.myDeck.deal());
       computerCards.push(this.myDeck.deal(), this.myDeck.deal());
     }
-    this.computer.takeCards(computerCards);
-    this.player.takeCards(playerCards);
+    this.computer.acceptCards(computerCards);
+    this.player.acceptCards(playerCards);
   };
 
-  putInCrib = (cards: Card[]): void => {
+  putInCrib = (cards: CribbageCard[]): void => {
     this.crib.push(...cards);
   };
 

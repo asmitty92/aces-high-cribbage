@@ -10,7 +10,7 @@ describe("CribbageHand", () => {
           new Card(Suits.CLUBS, Faces.EIGHT),
           new Card(Suits.DIAMONDS, Faces.FOUR),
           new Card(Suits.SPADES, Faces.JACK),
-        ]);
+        ], Symbol("accessKey"));
         hand.cutCard = new Card(Suits.SPADES, Faces.TEN);
 
         expect(hand.calculateScore()).toEqual(1);
@@ -22,7 +22,7 @@ describe("CribbageHand", () => {
           new Card(Suits.CLUBS, Faces.EIGHT),
           new Card(Suits.DIAMONDS, Faces.SIX),
           new Card(Suits.SPADES, Faces.JACK), // Not matching cut card suit
-        ]);
+        ], Symbol("accessKey"));
         hand.cutCard = new Card(Suits.CLUBS, Faces.FOUR);
 
         expect(hand.calculateScore()).toEqual(0);
@@ -36,7 +36,7 @@ describe("CribbageHand", () => {
           new Card(Suits.CLUBS, Faces.QUEEN),
           new Card(Suits.SPADES, Faces.EIGHT),
           new Card(Suits.CLUBS, Faces.TWO),
-        ]);
+        ], Symbol("accessKey"));
         hand.cutCard = new Card(Suits.HEARTS, Faces.KING);
 
         expect(hand.calculateScore()).toEqual(2);
@@ -48,7 +48,7 @@ describe("CribbageHand", () => {
           new Card(Suits.CLUBS, Faces.QUEEN),
           new Card(Suits.SPADES, Faces.EIGHT),
           new Card(Suits.CLUBS, Faces.TWO),
-        ]);
+        ], Symbol("accessKey"));
         hand.cutCard = new Card(Suits.HEARTS, Faces.QUEEN);
 
         expect(hand.calculateScore()).toEqual(4);
@@ -60,7 +60,7 @@ describe("CribbageHand", () => {
           new Card(Suits.CLUBS, Faces.QUEEN),
           new Card(Suits.SPADES, Faces.EIGHT),
           new Card(Suits.CLUBS, Faces.TWO),
-        ]);
+        ], Symbol("accessKey"));
         hand.cutCard = new Card(Suits.HEARTS, Faces.EIGHT);
 
         expect(hand.calculateScore()).toEqual(6);
@@ -72,7 +72,7 @@ describe("CribbageHand", () => {
           new Card(Suits.CLUBS, Faces.QUEEN),
           new Card(Suits.SPADES, Faces.EIGHT),
           new Card(Suits.DIAMONDS, Faces.EIGHT),
-        ]);
+        ], Symbol("accessKey"));
         hand.cutCard = new Card(Suits.HEARTS, Faces.EIGHT);
 
         expect(hand.calculateScore()).toEqual(12);
@@ -84,7 +84,7 @@ describe("CribbageHand", () => {
           new Card(Suits.CLUBS, Faces.QUEEN),
           new Card(Suits.SPADES, Faces.EIGHT),
           new Card(Suits.SPADES, Faces.QUEEN),
-        ]);
+        ], Symbol("accessKey"));
         hand.cutCard = new Card(Suits.HEARTS, Faces.EIGHT);
 
         expect(hand.calculateScore()).toEqual(8);
@@ -98,7 +98,7 @@ describe("CribbageHand", () => {
           new Card(Suits.CLUBS, Faces.EIGHT),
           new Card(Suits.DIAMONDS, Faces.SEVEN),
           new Card(Suits.SPADES, Faces.FOUR),
-        ]);
+        ], Symbol("accessKey"));
         hand.cutCard = new Card(Suits.SPADES, Faces.TEN);
 
         expect(hand.calculateScore()).toEqual(2);
@@ -110,7 +110,7 @@ describe("CribbageHand", () => {
           new Card(Suits.CLUBS, Faces.EIGHT),
           new Card(Suits.DIAMONDS, Faces.JACK),
           new Card(Suits.SPADES, Faces.FOUR),
-        ]);
+        ], Symbol("accessKey"));
         hand.cutCard = new Card(Suits.SPADES, Faces.TEN);
 
         expect(hand.calculateScore()).toEqual(2);
@@ -122,7 +122,7 @@ describe("CribbageHand", () => {
           new Card(Suits.CLUBS, Faces.THREE),
           new Card(Suits.DIAMONDS, Faces.NINE),
           new Card(Suits.SPADES, Faces.FOUR),
-        ]);
+        ], Symbol("accessKey"));
         hand.cutCard = new Card(Suits.SPADES, Faces.SEVEN);
 
         expect(hand.calculateScore()).toEqual(2);
@@ -136,7 +136,7 @@ describe("CribbageHand", () => {
           new Card(Suits.HEARTS, Faces.FOUR),
           new Card(Suits.SPADES, Faces.QUEEN),
           new Card(Suits.CLUBS, Faces.TEN),
-        ]);
+        ], Symbol("accessKey"));
         hand.cutCard = new Card(Suits.DIAMONDS, Faces.TWO);
 
         expect(hand.calculateScore()).toEqual(3);
@@ -148,7 +148,7 @@ describe("CribbageHand", () => {
           new Card(Suits.DIAMONDS, Faces.FOUR),
           new Card(Suits.SPADES, Faces.FIVE),
           new Card(Suits.CLUBS, Faces.THREE),
-        ]);
+        ], Symbol("accessKey"));
         hand.cutCard = new Card(Suits.HEARTS, Faces.THREE);
 
         expect(hand.calculateScore()).toEqual(21); // Three 3s = 6 + 3 runs of 3 = 9 + 3 fifteens = 6
@@ -160,7 +160,7 @@ describe("CribbageHand", () => {
           new Card(Suits.HEARTS, Faces.FOUR),
           new Card(Suits.SPADES, Faces.QUEEN),
           new Card(Suits.CLUBS, Faces.TEN),
-        ]);
+        ], Symbol("accessKey"));
         hand.cutCard = new Card(Suits.DIAMONDS, Faces.KING);
 
         expect(hand.calculateScore()).toEqual(4);
@@ -172,7 +172,7 @@ describe("CribbageHand", () => {
           new Card(Suits.DIAMONDS, Faces.FOUR),
           new Card(Suits.SPADES, Faces.FIVE),
           new Card(Suits.CLUBS, Faces.THREE),
-        ]);
+        ], Symbol("accessKey"));
         hand.cutCard = new Card(Suits.CLUBS, Faces.SIX);
 
         expect(hand.calculateScore()).toEqual(14); // Two runs of 4 = 8 + pair of 3s = 2 + 2 fifteens = 4
@@ -184,7 +184,7 @@ describe("CribbageHand", () => {
           new Card(Suits.HEARTS, Faces.NINE),
           new Card(Suits.SPADES, Faces.QUEEN),
           new Card(Suits.CLUBS, Faces.TEN),
-        ]);
+        ], Symbol("accessKey"));
         hand.cutCard = new Card(Suits.DIAMONDS, Faces.KING);
 
         expect(hand.calculateScore()).toEqual(5);
@@ -196,7 +196,7 @@ describe("CribbageHand", () => {
           new Card(Suits.HEARTS, Faces.THREE),
           new Card(Suits.SPADES, Faces.FOUR),
           new Card(Suits.CLUBS, Faces.FIVE),
-        ]);
+        ], Symbol("accessKey"));
         hand.cutCard = new Card(Suits.DIAMONDS, Faces.TWO);
 
         expect(hand.calculateScore()).toEqual(7); //extra two points because it also adds to 15
@@ -210,7 +210,7 @@ describe("CribbageHand", () => {
           new Card(Suits.CLUBS, Faces.FOUR),
           new Card(Suits.CLUBS, Faces.JACK),
           new Card(Suits.CLUBS, Faces.TEN),
-        ]);
+        ], Symbol("accessKey"));
         hand.cutCard = new Card(Suits.HEARTS, Faces.KING);
 
         expect(hand.calculateScore()).toEqual(4);
@@ -223,7 +223,8 @@ describe("CribbageHand", () => {
             new Card(Suits.CLUBS, Faces.FOUR),
             new Card(Suits.CLUBS, Faces.JACK),
             new Card(Suits.CLUBS, Faces.TEN),
-          ],
+          ], 
+          Symbol("accessKey"),
           true,
         );
         hand.cutCard = new Card(Suits.HEARTS, Faces.KING);
@@ -237,7 +238,7 @@ describe("CribbageHand", () => {
           new Card(Suits.CLUBS, Faces.FOUR),
           new Card(Suits.CLUBS, Faces.QUEEN),
           new Card(Suits.CLUBS, Faces.TEN),
-        ]);
+        ], Symbol("accessKey"));
         hand.cutCard = new Card(Suits.CLUBS, Faces.KING);
 
         expect(hand.calculateScore()).toEqual(5);
@@ -250,7 +251,8 @@ describe("CribbageHand", () => {
             new Card(Suits.CLUBS, Faces.FOUR),
             new Card(Suits.CLUBS, Faces.QUEEN),
             new Card(Suits.CLUBS, Faces.TEN),
-          ],
+          ], 
+          Symbol("accessKey"),
           true,
         );
         hand.cutCard = new Card(Suits.CLUBS, Faces.KING);
@@ -266,7 +268,7 @@ describe("CribbageHand", () => {
           new Card(Suits.DIAMONDS, Faces.FIVE),
           new Card(Suits.SPADES, Faces.FIVE),
           new Card(Suits.CLUBS, Faces.TEN),
-        ]);
+        ], Symbol("accessKey"));
         hand.cutCard = new Card(Suits.HEARTS, Faces.FIVE);
 
         expect(hand.calculateScore()).toEqual(28);
@@ -278,7 +280,7 @@ describe("CribbageHand", () => {
           new Card(Suits.DIAMONDS, Faces.FIVE),
           new Card(Suits.SPADES, Faces.FIVE),
           new Card(Suits.CLUBS, Faces.JACK),
-        ]);
+        ], Symbol("accessKey"));
         hand.cutCard = new Card(Suits.CLUBS, Faces.FIVE);
 
         expect(hand.calculateScore()).toEqual(29);
@@ -290,7 +292,7 @@ describe("CribbageHand", () => {
           new Card(Suits.SPADES, Faces.TWO),
           new Card(Suits.HEARTS, Faces.ACE),
           new Card(Suits.SPADES, Faces.THREE),
-        ]);
+        ], Symbol("accessKey"));
         hand.cutCard = new Card(Suits.CLUBS, Faces.SEVEN);
 
         expect(hand.calculateScore()).toEqual(8);
@@ -302,7 +304,7 @@ describe("CribbageHand", () => {
           new Card(Suits.SPADES, Faces.EIGHT),
           new Card(Suits.HEARTS, Faces.SEVEN),
           new Card(Suits.SPADES, Faces.THREE),
-        ]);
+        ], Symbol("accessKey"));
         hand.cutCard = new Card(Suits.CLUBS, Faces.KING);
 
         expect(hand.calculateScore()).toEqual(6);
@@ -314,7 +316,7 @@ describe("CribbageHand", () => {
           new Card(Suits.SPADES, Faces.EIGHT),
           new Card(Suits.HEARTS, Faces.SEVEN),
           new Card(Suits.SPADES, Faces.SIX),
-        ]);
+        ], Symbol("accessKey"));
         hand.cutCard = new Card(Suits.CLUBS, Faces.NINE);
 
         expect(hand.calculateScore()).toEqual(16);
@@ -326,7 +328,7 @@ describe("CribbageHand", () => {
           new Card(Suits.CLUBS, Faces.TEN),
           new Card(Suits.DIAMONDS, Faces.TWO),
           new Card(Suits.SPADES, Faces.THREE),
-        ]);
+        ], Symbol("accessKey"));
         hand.cutCard = new Card(Suits.CLUBS, Faces.FIVE);
 
         expect(hand.calculateScore()).toEqual(10); // Four unique fifteens: 10+5, 2+3+10, 10+5, 5+5+2+3, and a pair of fives
@@ -335,10 +337,10 @@ describe("CribbageHand", () => {
   });
 
   describe("takeCardAt() method", () => {
-    it("removes the right card from the hand", async () => {
+    it("removes the right card from the hand", () => {
       const twoOfClubs = new Card(Suits.CLUBS, Faces.TWO);
       const cards = [new Card(Suits.CLUBS, Faces.ACE), twoOfClubs, new Card(Suits.DIAMONDS, Faces.THREE)];
-      const hand = new CribbageHand(cards);
+      const hand = new CribbageHand(cards, Symbol("accessKey"));
 
       const card = hand.takeCardAt(1);
 
@@ -346,9 +348,9 @@ describe("CribbageHand", () => {
       expect(hand.size).toEqual(2);
     });
 
-    it("throws an error when the index isn't in the hand", async () => {
+    it("throws an error when the index isn't in the hand", () => {
       const cards = [new Card(Suits.DIAMONDS, Faces.ACE)];
-      const hand = new CribbageHand(cards);
+      const hand = new CribbageHand(cards, Symbol("accessKey"));
 
       expect(() => hand.takeCardAt(1)).toThrow("Invalid index, hand only has 1 cards");
     });
@@ -365,7 +367,7 @@ describe("CribbagePlayer", () => {
         new Card(Suits.HEARTS, Faces.SEVEN),
       ];
       const player = new CribbagePlayer();
-      player.takeCards(cards);
+      player.acceptCards(cards);
 
       expect(player.hand).toBeTruthy();
     });
@@ -380,7 +382,7 @@ describe("CribbagePlayer", () => {
         new Card(Suits.HEARTS, Faces.SEVEN),
       ];
       const player = new CribbagePlayer();
-      player.takeCards(cards);
+      player.acceptCards(cards);
 
       player.scoreHand();
 
@@ -392,7 +394,7 @@ describe("CribbagePlayer", () => {
     const eightOfSpades = new Card(Suits.SPADES, Faces.EIGHT);
     const eightOfClubs = new Card(Suits.CLUBS, Faces.EIGHT);
 
-    it("discards the right cards to crib", async () => {
+    it("discards the right cards to crib", () => {
       const cards = [
         eightOfSpades,
         new Card(Suits.CLUBS, Faces.JACK),
@@ -402,14 +404,14 @@ describe("CribbagePlayer", () => {
         new Card(Suits.DIAMONDS, Faces.JACK),
       ];
       const player = new CribbagePlayer(true);
-      player.takeCards(cards);
+      player.acceptCards(cards);
 
       const cribCards = player.discardToCrib();
 
       expect(cribCards).toEqual([eightOfSpades, eightOfClubs]);
     });
 
-    it("discards the right cards when there is a tie", async () => {
+    it("discards the right cards when there is a tie", () => {
       const nineOfHearts = new Card(Suits.HEARTS, Faces.NINE);
       const nineOfDiamonds = new Card(Suits.DIAMONDS, Faces.NINE);
       const cards = [
@@ -421,14 +423,14 @@ describe("CribbagePlayer", () => {
         nineOfDiamonds,
       ];
       const player = new CribbagePlayer(true);
-      player.takeCards(cards);
+      player.acceptCards(cards);
 
       const cribCards = player.discardToCrib();
 
       expect(cribCards).toEqual([nineOfHearts, nineOfDiamonds]);
     });
 
-    it("handles a flush trade-off", async () => {
+    it("handles a flush trade-off", () => {
       const eight = new Card(Suits.SPADES, Faces.EIGHT);
       const nine = new Card(Suits.CLUBS, Faces.NINE);
       const cards = [
@@ -440,14 +442,14 @@ describe("CribbagePlayer", () => {
         nine,
       ];
       const player = new CribbagePlayer(true);
-      player.takeCards(cards);
+      player.acceptCards(cards);
 
       const cribCards = player.discardToCrib();
 
       expect(cribCards).toEqual([eight, nine]);
     });
 
-    it("handles multiple 15s with or without pairs", async () => {
+    it("handles multiple 15s with or without pairs", () => {
       const four = new Card(Suits.HEARTS, Faces.FOUR);
       const ace = new Card(Suits.CLUBS, Faces.ACE);
       const cards = [
@@ -459,14 +461,14 @@ describe("CribbagePlayer", () => {
         ace,
       ];
       const player = new CribbagePlayer(true);
-      player.takeCards(cards);
+      player.acceptCards(cards);
 
       const cribCards = player.discardToCrib();
 
       expect(cribCards).toEqual([four, ace]);
     });
 
-    it("handles multiple 15s with straights", async () => {
+    it("handles multiple 15s with straights", () => {
       const ten = new Card(Suits.HEARTS, Faces.TEN);
       const king = new Card(Suits.SPADES, Faces.KING);
       const cards = [
@@ -478,36 +480,36 @@ describe("CribbagePlayer", () => {
         king,
       ];
       const player = new CribbagePlayer(true);
-      player.takeCards(cards);
+      player.acceptCards(cards);
 
       const cribCards = player.discardToCrib();
 
       expect(cribCards).toEqual([ten, king]);
     });
 
-    it("throws an error if the player is not a computer and no indexes are passed", async () => {
+    it("throws an error if the player is not a computer and no indexes are passed", () => {
       const player = new CribbagePlayer();
 
       expect(() => player.discardToCrib()).toThrow("Must pass indexes for human player");
     });
 
-    it("throws an error if the player is not a computer and only index1 is passed", async () => {
+    it("throws an error if the player is not a computer and only index1 is passed", () => {
       const player = new CribbagePlayer();
 
       expect(() => player.discardToCrib(1)).toThrow("Must pass indexes for human player");
     });
 
-    it("throws an error if the player is not a computer and only index2 is passed", async () => {
+    it("throws an error if the player is not a computer and only index2 is passed", () => {
       const player = new CribbagePlayer();
 
       expect(() => player.discardToCrib(undefined, 1)).toThrow("Must pass indexes for human player");
     });
 
-    it("removes cards when human player passes small index first", async () => {
+    it("removes cards when human player passes small index first", () => {
       const twoOfSpades = new Card(Suits.SPADES, Faces.TWO);
       const threeOfClubs = new Card(Suits.CLUBS, Faces.THREE);
       const player = new CribbagePlayer();
-      player.takeCards([twoOfSpades, threeOfClubs]);
+      player.acceptCards([twoOfSpades, threeOfClubs]);
 
       const cards = player.discardToCrib(0, 1);
 
@@ -515,11 +517,11 @@ describe("CribbagePlayer", () => {
       expect(player.hand.size).toEqual(0);
     });
 
-    it("removes cards when human player passes large index first", async () => {
+    it("removes cards when human player passes large index first", () => {
       const twoOfSpades = new Card(Suits.SPADES, Faces.TWO);
       const threeOfClubs = new Card(Suits.CLUBS, Faces.THREE);
       const player = new CribbagePlayer();
-      player.takeCards([twoOfSpades, threeOfClubs]);
+      player.acceptCards([twoOfSpades, threeOfClubs]);
 
       const cards = player.discardToCrib(1, 0);
 
@@ -527,7 +529,7 @@ describe("CribbagePlayer", () => {
       expect(player.hand.size).toEqual(0);
     });
 
-    it("should throw an error if user passes the same index twice", async () => {
+    it("should throw an error if user passes the same index twice", () => {
       const player = new CribbagePlayer();
 
       expect(() => player.discardToCrib(0, 0)).toThrow("Cannot pass the same index twice");
@@ -535,17 +537,17 @@ describe("CribbagePlayer", () => {
   });
 
   describe("takeCutCard method", () => {
-    it("adds the cut card into the hand", async () => {
+    it("adds the cut card into the hand", () => {
       const cutCard = new Card(Suits.HEARTS, Faces.TWO);
       const player = new CribbagePlayer();
-      player.takeCards([]);
+      player.acceptCards([]);
 
       player.takeCutCard(cutCard);
 
       expect(player.hand.cutCard).toBe(cutCard);
     });
 
-    it("throws an error if there is no current hand", async () => {
+    it("throws an error if there is no current hand", () => {
       const player = new CribbagePlayer();
       const cutCard = new Card(Suits.CLUBS, Faces.ACE);
 
@@ -556,20 +558,20 @@ describe("CribbagePlayer", () => {
 
 describe("CribbageGame", () => {
   let game: CribbageGame;
-  beforeEach(async () => {
+  beforeEach(() => {
     game = new CribbageGame();
     game.startGame();
   });
 
   describe("startGame method", () => {
-    it("starts a game", async () => {
+    it("starts a game", () => {
       expect(game.player).toBeDefined();
       expect(game.computer).toBeDefined();
     });
   });
 
   describe("isOver property", () => {
-    it("returns true if the player has a score over 120 points", async () => {
+    it("returns true if the player has a score over 120 points", () => {
       Object.defineProperty(game.player, "score", {
         get: jest.fn(() => 121),
       });
@@ -577,7 +579,7 @@ describe("CribbageGame", () => {
       expect(game.isOver).toEqual(true);
     });
 
-    it("returns true if the computer has a score over 120 points", async () => {
+    it("returns true if the computer has a score over 120 points", () => {
       Object.defineProperty(game.computer, "score", {
         get: jest.fn(() => 121),
       });
@@ -585,7 +587,7 @@ describe("CribbageGame", () => {
       expect(game.isOver).toEqual(true);
     });
 
-    it("returns false if the player and computer are both 120 or below", async () => {
+    it("returns false if the player and computer are both 120 or below", () => {
       Object.defineProperty(game.player, "score", {
         get: jest.fn(() => 120),
       });
@@ -596,7 +598,7 @@ describe("CribbageGame", () => {
       expect(game.isOver).toBe(false);
     });
 
-    it("throws an error if both players are over 120", async () => {
+    it("throws an error if both players are over 120", () => {
       Object.defineProperty(game.player, "score", {
         get: jest.fn(() => 121),
       });
@@ -607,7 +609,7 @@ describe("CribbageGame", () => {
       expect(() => game.isOver).toThrow("Both players cannot win");
     });
 
-    it("throws an error if player is not defined", async () => {
+    it("throws an error if player is not defined", () => {
       Object.defineProperty(game, "player", {
         get: undefined,
       });
@@ -615,7 +617,7 @@ describe("CribbageGame", () => {
       expect(() => game.isOver).toThrow("Looks like we're missing a player");
     });
 
-    it("throws an error if computer is not defined", async () => {
+    it("throws an error if computer is not defined", () => {
       Object.defineProperty(game, "computer", {
         get: undefined,
       });
@@ -625,7 +627,7 @@ describe("CribbageGame", () => {
   });
 
   describe("dealHand method", () => {
-    it("deals the player 6 cards", async () => {
+    it("deals the player 6 cards", () => {
       const game = new CribbageGame();
       game.startGame();
 
@@ -634,7 +636,7 @@ describe("CribbageGame", () => {
       expect(game.player.hand?.size).toEqual(6);
     });
 
-    it("deals the computer 6 cards", async () => {
+    it("deals the computer 6 cards", () => {
       const game = new CribbageGame();
       game.startGame();
 
@@ -645,17 +647,17 @@ describe("CribbageGame", () => {
   });
 
   describe("crib handling", () => {
-    it("has a property to fetch the crib", async () => {
+    it("has a property to fetch the crib", () => {
       expect(game.crib).toEqual([]);
     });
 
-    it("has a method to add cards to the crib", async () => {
+    it("has a method to add cards to the crib", () => {
       game.putInCrib([new Card(Suits.DIAMONDS, Faces.TWO)]);
 
       expect(game.crib.length).toEqual(1);
     });
 
-    it("has a method to clear the crib", async () => {
+    it("has a method to clear the crib", () => {
       game.putInCrib([new Card(Suits.CLUBS, Faces.KING)]);
 
       game.clearCrib();
