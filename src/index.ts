@@ -103,7 +103,6 @@ export class CribbageHand extends CardHand<Face> {
   }
 }
 
-
 export class CribbagePlayer extends CardPlayer<Face> {
   private handAccessKey: symbol;
   protected isComputer: boolean;
@@ -178,7 +177,9 @@ export class CribbagePlayer extends CardPlayer<Face> {
         maxHand = hand;
       }
     }
-    const [card1, card2] = this.hand.cards(this.handAccessKey).filter((card) => !maxHand.cards(scoringAccessKey).includes(card));
+    const [card1, card2] = this.hand
+      .cards(this.handAccessKey)
+      .filter((card) => !maxHand.cards(scoringAccessKey).includes(card));
     this.currentHand = maxHand;
     return [card1, card2];
   }

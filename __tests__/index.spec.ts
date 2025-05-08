@@ -5,24 +5,30 @@ describe("CribbageHand", () => {
   describe("calculateScore() method", () => {
     describe("counting his nobs", () => {
       it("counts his nobs", () => {
-        const hand = new CribbageHand([
-          new Card(Suits.HEARTS, Faces.TWO),
-          new Card(Suits.CLUBS, Faces.EIGHT),
-          new Card(Suits.DIAMONDS, Faces.FOUR),
-          new Card(Suits.SPADES, Faces.JACK),
-        ], Symbol("accessKey"));
+        const hand = new CribbageHand(
+          [
+            new Card(Suits.HEARTS, Faces.TWO),
+            new Card(Suits.CLUBS, Faces.EIGHT),
+            new Card(Suits.DIAMONDS, Faces.FOUR),
+            new Card(Suits.SPADES, Faces.JACK),
+          ],
+          Symbol("accessKey"),
+        );
         hand.cutCard = new Card(Suits.SPADES, Faces.TEN);
 
         expect(hand.calculateScore()).toEqual(1);
       });
 
       it("does not count his nobs when suits don't match", () => {
-        const hand = new CribbageHand([
-          new Card(Suits.HEARTS, Faces.TWO),
-          new Card(Suits.CLUBS, Faces.EIGHT),
-          new Card(Suits.DIAMONDS, Faces.SIX),
-          new Card(Suits.SPADES, Faces.JACK), // Not matching cut card suit
-        ], Symbol("accessKey"));
+        const hand = new CribbageHand(
+          [
+            new Card(Suits.HEARTS, Faces.TWO),
+            new Card(Suits.CLUBS, Faces.EIGHT),
+            new Card(Suits.DIAMONDS, Faces.SIX),
+            new Card(Suits.SPADES, Faces.JACK), // Not matching cut card suit
+          ],
+          Symbol("accessKey"),
+        );
         hand.cutCard = new Card(Suits.CLUBS, Faces.FOUR);
 
         expect(hand.calculateScore()).toEqual(0);
@@ -31,60 +37,75 @@ describe("CribbageHand", () => {
 
     describe("counting sets", () => {
       it("counts one set", () => {
-        const hand = new CribbageHand([
-          new Card(Suits.CLUBS, Faces.EIGHT),
-          new Card(Suits.CLUBS, Faces.QUEEN),
-          new Card(Suits.SPADES, Faces.EIGHT),
-          new Card(Suits.CLUBS, Faces.TWO),
-        ], Symbol("accessKey"));
+        const hand = new CribbageHand(
+          [
+            new Card(Suits.CLUBS, Faces.EIGHT),
+            new Card(Suits.CLUBS, Faces.QUEEN),
+            new Card(Suits.SPADES, Faces.EIGHT),
+            new Card(Suits.CLUBS, Faces.TWO),
+          ],
+          Symbol("accessKey"),
+        );
         hand.cutCard = new Card(Suits.HEARTS, Faces.KING);
 
         expect(hand.calculateScore()).toEqual(2);
       });
 
       it("counts two sets", () => {
-        const hand = new CribbageHand([
-          new Card(Suits.CLUBS, Faces.EIGHT),
-          new Card(Suits.CLUBS, Faces.QUEEN),
-          new Card(Suits.SPADES, Faces.EIGHT),
-          new Card(Suits.CLUBS, Faces.TWO),
-        ], Symbol("accessKey"));
+        const hand = new CribbageHand(
+          [
+            new Card(Suits.CLUBS, Faces.EIGHT),
+            new Card(Suits.CLUBS, Faces.QUEEN),
+            new Card(Suits.SPADES, Faces.EIGHT),
+            new Card(Suits.CLUBS, Faces.TWO),
+          ],
+          Symbol("accessKey"),
+        );
         hand.cutCard = new Card(Suits.HEARTS, Faces.QUEEN);
 
         expect(hand.calculateScore()).toEqual(4);
       });
 
       it("counts a set of 3", () => {
-        const hand = new CribbageHand([
-          new Card(Suits.CLUBS, Faces.EIGHT),
-          new Card(Suits.CLUBS, Faces.QUEEN),
-          new Card(Suits.SPADES, Faces.EIGHT),
-          new Card(Suits.CLUBS, Faces.TWO),
-        ], Symbol("accessKey"));
+        const hand = new CribbageHand(
+          [
+            new Card(Suits.CLUBS, Faces.EIGHT),
+            new Card(Suits.CLUBS, Faces.QUEEN),
+            new Card(Suits.SPADES, Faces.EIGHT),
+            new Card(Suits.CLUBS, Faces.TWO),
+          ],
+          Symbol("accessKey"),
+        );
         hand.cutCard = new Card(Suits.HEARTS, Faces.EIGHT);
 
         expect(hand.calculateScore()).toEqual(6);
       });
 
       it("counts a set of 4", () => {
-        const hand = new CribbageHand([
-          new Card(Suits.CLUBS, Faces.EIGHT),
-          new Card(Suits.CLUBS, Faces.QUEEN),
-          new Card(Suits.SPADES, Faces.EIGHT),
-          new Card(Suits.DIAMONDS, Faces.EIGHT),
-        ], Symbol("accessKey"));
+        const hand = new CribbageHand(
+          [
+            new Card(Suits.CLUBS, Faces.EIGHT),
+            new Card(Suits.CLUBS, Faces.QUEEN),
+            new Card(Suits.SPADES, Faces.EIGHT),
+            new Card(Suits.DIAMONDS, Faces.EIGHT),
+          ],
+          Symbol("accessKey"),
+        );
         hand.cutCard = new Card(Suits.HEARTS, Faces.EIGHT);
 
         expect(hand.calculateScore()).toEqual(12);
       });
 
       it("counts a set of 3 and a set of 2", () => {
-        const hand = new CribbageHand([
-          new Card(Suits.CLUBS, Faces.EIGHT),
-          new Card(Suits.CLUBS, Faces.QUEEN),
-          new Card(Suits.SPADES, Faces.EIGHT),
-          new Card(Suits.SPADES, Faces.QUEEN),
-        ], Symbol("accessKey"));
+        const hand = new CribbageHand(
+          [
+            new Card(Suits.CLUBS, Faces.EIGHT),
+            new Card(Suits.CLUBS, Faces.QUEEN),
+            new Card(Suits.SPADES, Faces.EIGHT),
+            new Card(Suits.SPADES, Faces.QUEEN),
+          ],
+          Symbol("accessKey"),
+        );
         hand.cutCard = new Card(Suits.HEARTS, Faces.EIGHT);
 
         expect(hand.calculateScore()).toEqual(8);
@@ -93,36 +114,45 @@ describe("CribbageHand", () => {
 
     describe("counting fifteens", () => {
       it("counts a 2 card 15", () => {
-        const hand = new CribbageHand([
-          new Card(Suits.HEARTS, Faces.TWO),
-          new Card(Suits.CLUBS, Faces.EIGHT),
-          new Card(Suits.DIAMONDS, Faces.SEVEN),
-          new Card(Suits.SPADES, Faces.FOUR),
-        ], Symbol("accessKey"));
+        const hand = new CribbageHand(
+          [
+            new Card(Suits.HEARTS, Faces.TWO),
+            new Card(Suits.CLUBS, Faces.EIGHT),
+            new Card(Suits.DIAMONDS, Faces.SEVEN),
+            new Card(Suits.SPADES, Faces.FOUR),
+          ],
+          Symbol("accessKey"),
+        );
         hand.cutCard = new Card(Suits.SPADES, Faces.TEN);
 
         expect(hand.calculateScore()).toEqual(2);
       });
 
       it("counts a 3 card 15", () => {
-        const hand = new CribbageHand([
-          new Card(Suits.HEARTS, Faces.THREE),
-          new Card(Suits.CLUBS, Faces.EIGHT),
-          new Card(Suits.DIAMONDS, Faces.JACK),
-          new Card(Suits.SPADES, Faces.FOUR),
-        ], Symbol("accessKey"));
+        const hand = new CribbageHand(
+          [
+            new Card(Suits.HEARTS, Faces.THREE),
+            new Card(Suits.CLUBS, Faces.EIGHT),
+            new Card(Suits.DIAMONDS, Faces.JACK),
+            new Card(Suits.SPADES, Faces.FOUR),
+          ],
+          Symbol("accessKey"),
+        );
         hand.cutCard = new Card(Suits.SPADES, Faces.TEN);
 
         expect(hand.calculateScore()).toEqual(2);
       });
 
       it("counts a 4 card 15", () => {
-        const hand = new CribbageHand([
-          new Card(Suits.HEARTS, Faces.ACE),
-          new Card(Suits.CLUBS, Faces.THREE),
-          new Card(Suits.DIAMONDS, Faces.NINE),
-          new Card(Suits.SPADES, Faces.FOUR),
-        ], Symbol("accessKey"));
+        const hand = new CribbageHand(
+          [
+            new Card(Suits.HEARTS, Faces.ACE),
+            new Card(Suits.CLUBS, Faces.THREE),
+            new Card(Suits.DIAMONDS, Faces.NINE),
+            new Card(Suits.SPADES, Faces.FOUR),
+          ],
+          Symbol("accessKey"),
+        );
         hand.cutCard = new Card(Suits.SPADES, Faces.SEVEN);
 
         expect(hand.calculateScore()).toEqual(2);
@@ -131,72 +161,90 @@ describe("CribbageHand", () => {
 
     describe("counting runs", () => {
       it("counts a 3 card run", () => {
-        const hand = new CribbageHand([
-          new Card(Suits.CLUBS, Faces.JACK),
-          new Card(Suits.HEARTS, Faces.FOUR),
-          new Card(Suits.SPADES, Faces.QUEEN),
-          new Card(Suits.CLUBS, Faces.TEN),
-        ], Symbol("accessKey"));
+        const hand = new CribbageHand(
+          [
+            new Card(Suits.CLUBS, Faces.JACK),
+            new Card(Suits.HEARTS, Faces.FOUR),
+            new Card(Suits.SPADES, Faces.QUEEN),
+            new Card(Suits.CLUBS, Faces.TEN),
+          ],
+          Symbol("accessKey"),
+        );
         hand.cutCard = new Card(Suits.DIAMONDS, Faces.TWO);
 
         expect(hand.calculateScore()).toEqual(3);
       });
 
       it("counts a triple 3 card run", () => {
-        const hand = new CribbageHand([
-          new Card(Suits.HEARTS, Faces.THREE),
-          new Card(Suits.DIAMONDS, Faces.FOUR),
-          new Card(Suits.SPADES, Faces.FIVE),
-          new Card(Suits.CLUBS, Faces.THREE),
-        ], Symbol("accessKey"));
+        const hand = new CribbageHand(
+          [
+            new Card(Suits.HEARTS, Faces.THREE),
+            new Card(Suits.DIAMONDS, Faces.FOUR),
+            new Card(Suits.SPADES, Faces.FIVE),
+            new Card(Suits.CLUBS, Faces.THREE),
+          ],
+          Symbol("accessKey"),
+        );
         hand.cutCard = new Card(Suits.HEARTS, Faces.THREE);
 
         expect(hand.calculateScore()).toEqual(21); // Three 3s = 6 + 3 runs of 3 = 9 + 3 fifteens = 6
       });
 
       it("counts a 4 card run", () => {
-        const hand = new CribbageHand([
-          new Card(Suits.CLUBS, Faces.JACK),
-          new Card(Suits.HEARTS, Faces.FOUR),
-          new Card(Suits.SPADES, Faces.QUEEN),
-          new Card(Suits.CLUBS, Faces.TEN),
-        ], Symbol("accessKey"));
+        const hand = new CribbageHand(
+          [
+            new Card(Suits.CLUBS, Faces.JACK),
+            new Card(Suits.HEARTS, Faces.FOUR),
+            new Card(Suits.SPADES, Faces.QUEEN),
+            new Card(Suits.CLUBS, Faces.TEN),
+          ],
+          Symbol("accessKey"),
+        );
         hand.cutCard = new Card(Suits.DIAMONDS, Faces.KING);
 
         expect(hand.calculateScore()).toEqual(4);
       });
 
       it("counts a double 4 card run", () => {
-        const hand = new CribbageHand([
-          new Card(Suits.HEARTS, Faces.THREE),
-          new Card(Suits.DIAMONDS, Faces.FOUR),
-          new Card(Suits.SPADES, Faces.FIVE),
-          new Card(Suits.CLUBS, Faces.THREE),
-        ], Symbol("accessKey"));
+        const hand = new CribbageHand(
+          [
+            new Card(Suits.HEARTS, Faces.THREE),
+            new Card(Suits.DIAMONDS, Faces.FOUR),
+            new Card(Suits.SPADES, Faces.FIVE),
+            new Card(Suits.CLUBS, Faces.THREE),
+          ],
+          Symbol("accessKey"),
+        );
         hand.cutCard = new Card(Suits.CLUBS, Faces.SIX);
 
         expect(hand.calculateScore()).toEqual(14); // Two runs of 4 = 8 + pair of 3s = 2 + 2 fifteens = 4
       });
 
       it("counts a high 5 card run", () => {
-        const hand = new CribbageHand([
-          new Card(Suits.CLUBS, Faces.JACK),
-          new Card(Suits.HEARTS, Faces.NINE),
-          new Card(Suits.SPADES, Faces.QUEEN),
-          new Card(Suits.CLUBS, Faces.TEN),
-        ], Symbol("accessKey"));
+        const hand = new CribbageHand(
+          [
+            new Card(Suits.CLUBS, Faces.JACK),
+            new Card(Suits.HEARTS, Faces.NINE),
+            new Card(Suits.SPADES, Faces.QUEEN),
+            new Card(Suits.CLUBS, Faces.TEN),
+          ],
+          Symbol("accessKey"),
+        );
         hand.cutCard = new Card(Suits.DIAMONDS, Faces.KING);
 
         expect(hand.calculateScore()).toEqual(5);
       });
 
       it("counts a low 5 card run", () => {
-        const hand = new CribbageHand([
-          new Card(Suits.CLUBS, Faces.ACE),
-          new Card(Suits.HEARTS, Faces.THREE),
-          new Card(Suits.SPADES, Faces.FOUR),
-          new Card(Suits.CLUBS, Faces.FIVE),
-        ], Symbol("accessKey"));
+        const hand = new CribbageHand(
+          [
+            new Card(Suits.CLUBS, Faces.ACE),
+            new Card(Suits.HEARTS, Faces.THREE),
+            new Card(Suits.SPADES, Faces.FOUR),
+            new Card(Suits.CLUBS, Faces.FIVE),
+          ],
+          Symbol("accessKey"),
+        );
         hand.cutCard = new Card(Suits.DIAMONDS, Faces.TWO);
 
         expect(hand.calculateScore()).toEqual(7); //extra two points because it also adds to 15
@@ -205,12 +253,15 @@ describe("CribbageHand", () => {
 
     describe("counting flushes", () => {
       it("counts a 4 card flush not in crib", () => {
-        const hand = new CribbageHand([
-          new Card(Suits.CLUBS, Faces.TWO),
-          new Card(Suits.CLUBS, Faces.FOUR),
-          new Card(Suits.CLUBS, Faces.JACK),
-          new Card(Suits.CLUBS, Faces.TEN),
-        ], Symbol("accessKey"));
+        const hand = new CribbageHand(
+          [
+            new Card(Suits.CLUBS, Faces.TWO),
+            new Card(Suits.CLUBS, Faces.FOUR),
+            new Card(Suits.CLUBS, Faces.JACK),
+            new Card(Suits.CLUBS, Faces.TEN),
+          ],
+          Symbol("accessKey"),
+        );
         hand.cutCard = new Card(Suits.HEARTS, Faces.KING);
 
         expect(hand.calculateScore()).toEqual(4);
@@ -223,7 +274,7 @@ describe("CribbageHand", () => {
             new Card(Suits.CLUBS, Faces.FOUR),
             new Card(Suits.CLUBS, Faces.JACK),
             new Card(Suits.CLUBS, Faces.TEN),
-          ], 
+          ],
           Symbol("accessKey"),
           true,
         );
@@ -233,12 +284,15 @@ describe("CribbageHand", () => {
       });
 
       it("counts a 5 card flush not in crib", () => {
-        const hand = new CribbageHand([
-          new Card(Suits.CLUBS, Faces.TWO),
-          new Card(Suits.CLUBS, Faces.FOUR),
-          new Card(Suits.CLUBS, Faces.QUEEN),
-          new Card(Suits.CLUBS, Faces.TEN),
-        ], Symbol("accessKey"));
+        const hand = new CribbageHand(
+          [
+            new Card(Suits.CLUBS, Faces.TWO),
+            new Card(Suits.CLUBS, Faces.FOUR),
+            new Card(Suits.CLUBS, Faces.QUEEN),
+            new Card(Suits.CLUBS, Faces.TEN),
+          ],
+          Symbol("accessKey"),
+        );
         hand.cutCard = new Card(Suits.CLUBS, Faces.KING);
 
         expect(hand.calculateScore()).toEqual(5);
@@ -251,7 +305,7 @@ describe("CribbageHand", () => {
             new Card(Suits.CLUBS, Faces.FOUR),
             new Card(Suits.CLUBS, Faces.QUEEN),
             new Card(Suits.CLUBS, Faces.TEN),
-          ], 
+          ],
           Symbol("accessKey"),
           true,
         );
@@ -263,72 +317,90 @@ describe("CribbageHand", () => {
 
     describe("common hand situations", () => {
       it("counts 28 points", () => {
-        const hand = new CribbageHand([
-          new Card(Suits.CLUBS, Faces.FIVE),
-          new Card(Suits.DIAMONDS, Faces.FIVE),
-          new Card(Suits.SPADES, Faces.FIVE),
-          new Card(Suits.CLUBS, Faces.TEN),
-        ], Symbol("accessKey"));
+        const hand = new CribbageHand(
+          [
+            new Card(Suits.CLUBS, Faces.FIVE),
+            new Card(Suits.DIAMONDS, Faces.FIVE),
+            new Card(Suits.SPADES, Faces.FIVE),
+            new Card(Suits.CLUBS, Faces.TEN),
+          ],
+          Symbol("accessKey"),
+        );
         hand.cutCard = new Card(Suits.HEARTS, Faces.FIVE);
 
         expect(hand.calculateScore()).toEqual(28);
       });
 
       it("counts 29 points", () => {
-        const hand = new CribbageHand([
-          new Card(Suits.HEARTS, Faces.FIVE),
-          new Card(Suits.DIAMONDS, Faces.FIVE),
-          new Card(Suits.SPADES, Faces.FIVE),
-          new Card(Suits.CLUBS, Faces.JACK),
-        ], Symbol("accessKey"));
+        const hand = new CribbageHand(
+          [
+            new Card(Suits.HEARTS, Faces.FIVE),
+            new Card(Suits.DIAMONDS, Faces.FIVE),
+            new Card(Suits.SPADES, Faces.FIVE),
+            new Card(Suits.CLUBS, Faces.JACK),
+          ],
+          Symbol("accessKey"),
+        );
         hand.cutCard = new Card(Suits.CLUBS, Faces.FIVE);
 
         expect(hand.calculateScore()).toEqual(29);
       });
 
       it("counts straight 8", () => {
-        const hand = new CribbageHand([
-          new Card(Suits.SPADES, Faces.ACE),
-          new Card(Suits.SPADES, Faces.TWO),
-          new Card(Suits.HEARTS, Faces.ACE),
-          new Card(Suits.SPADES, Faces.THREE),
-        ], Symbol("accessKey"));
+        const hand = new CribbageHand(
+          [
+            new Card(Suits.SPADES, Faces.ACE),
+            new Card(Suits.SPADES, Faces.TWO),
+            new Card(Suits.HEARTS, Faces.ACE),
+            new Card(Suits.SPADES, Faces.THREE),
+          ],
+          Symbol("accessKey"),
+        );
         hand.cutCard = new Card(Suits.CLUBS, Faces.SEVEN);
 
         expect(hand.calculateScore()).toEqual(8);
       });
 
       it("counts 15 2, 4 and a pair is 6", () => {
-        const hand = new CribbageHand([
-          new Card(Suits.SPADES, Faces.SEVEN),
-          new Card(Suits.SPADES, Faces.EIGHT),
-          new Card(Suits.HEARTS, Faces.SEVEN),
-          new Card(Suits.SPADES, Faces.THREE),
-        ], Symbol("accessKey"));
+        const hand = new CribbageHand(
+          [
+            new Card(Suits.SPADES, Faces.SEVEN),
+            new Card(Suits.SPADES, Faces.EIGHT),
+            new Card(Suits.HEARTS, Faces.SEVEN),
+            new Card(Suits.SPADES, Faces.THREE),
+          ],
+          Symbol("accessKey"),
+        );
         hand.cutCard = new Card(Suits.CLUBS, Faces.KING);
 
         expect(hand.calculateScore()).toEqual(6);
       });
 
       it("counts all the straights and 15s", () => {
-        const hand = new CribbageHand([
-          new Card(Suits.SPADES, Faces.SEVEN),
-          new Card(Suits.SPADES, Faces.EIGHT),
-          new Card(Suits.HEARTS, Faces.SEVEN),
-          new Card(Suits.SPADES, Faces.SIX),
-        ], Symbol("accessKey"));
+        const hand = new CribbageHand(
+          [
+            new Card(Suits.SPADES, Faces.SEVEN),
+            new Card(Suits.SPADES, Faces.EIGHT),
+            new Card(Suits.HEARTS, Faces.SEVEN),
+            new Card(Suits.SPADES, Faces.SIX),
+          ],
+          Symbol("accessKey"),
+        );
         hand.cutCard = new Card(Suits.CLUBS, Faces.NINE);
 
         expect(hand.calculateScore()).toEqual(16);
       });
 
       it("does not double count same 15 combo", () => {
-        const hand = new CribbageHand([
-          new Card(Suits.HEARTS, Faces.FIVE),
-          new Card(Suits.CLUBS, Faces.TEN),
-          new Card(Suits.DIAMONDS, Faces.TWO),
-          new Card(Suits.SPADES, Faces.THREE),
-        ], Symbol("accessKey"));
+        const hand = new CribbageHand(
+          [
+            new Card(Suits.HEARTS, Faces.FIVE),
+            new Card(Suits.CLUBS, Faces.TEN),
+            new Card(Suits.DIAMONDS, Faces.TWO),
+            new Card(Suits.SPADES, Faces.THREE),
+          ],
+          Symbol("accessKey"),
+        );
         hand.cutCard = new Card(Suits.CLUBS, Faces.FIVE);
 
         expect(hand.calculateScore()).toEqual(10); // Four unique fifteens: 10+5, 2+3+10, 10+5, 5+5+2+3, and a pair of fives
